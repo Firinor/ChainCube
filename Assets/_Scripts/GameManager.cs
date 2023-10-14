@@ -1,18 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Inject]
+    private CubeFactoryWithPool factory;
+    [Inject]
+    private Player player;
+    [SerializeField]
+    private InitialPlacement placement;
+
+    public void RestartLevel()
     {
-        
+        CleareScore();
+        factory.ClearAll();
+        InitialPlacement();
+        player.NextCube();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void CleareScore()
     {
-        
+        player.CurrentScore.Value = 0;
+    }
+
+    private void InitialPlacement()
+    {
+        var cubes = placement.CubeWithPosition;
+        foreach(var cube in cubes)
+        {
+            factory.Create(cube.Position);
+        }
     }
 }
