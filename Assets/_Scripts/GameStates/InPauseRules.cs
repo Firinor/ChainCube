@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Pause : IState
+public class InPauseRules : IState
 {
     public void Enter()
     {

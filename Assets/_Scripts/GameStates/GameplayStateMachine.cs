@@ -23,8 +23,14 @@ public class GameplayStateMachine
     private void Initialize()
     {
         states = new Dictionary<State, IState>();
-        states.Add(State.Pause, new Pause());
-    //    states.Add(State.CubeAim, new CubeAim());
-    //    states.Add(State.Shoot, new Shoot());
+        states.Add(State.Pause, new InPauseRules());
+        states.Add(State.Game, new InGameRules());
+
+        currentIState = states[State.Game];
+    }
+
+    public void Tick()
+    {
+        currentIState.Tick();
     }
 }

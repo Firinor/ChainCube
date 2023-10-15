@@ -1,6 +1,5 @@
 ﻿public enum State
 {
-    CubeAim,
-    Shoot,
+    Game,
     Pause
 }

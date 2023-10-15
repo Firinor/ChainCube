@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -6,18 +7,34 @@ public class GameManager : MonoBehaviour
     [Inject]
     private CubeFactoryWithPool factory;
     [Inject]
-    private Player player;
+    private Player player; 
+    [Inject]
+    private GameplayStateMachine stateMachine;
+
     [SerializeField]
-    private InitialPlacement placement;
+    private InitialPlacement[] placement;
+
+    private IState state;
+
+    private void Awake()
+    {
+        RestartLevel();
+    }
+
+    private void Update()
+    {
+        stateMachine.Tick();
+    }
 
     public void RestartLevel()
     {
         CleareScore();
         factory.ClearAll();
         InitialPlacement();
-        player.NextCube();
+        stateMachine.SetState(State.Game);
     }
 
+   
     private void CleareScore()
     {
         player.CurrentScore.Value = 0;
@@ -25,10 +42,11 @@ public class GameManager : MonoBehaviour
 
     private void InitialPlacement()
     {
-        var cubes = placement.CubeWithPosition;
+        int randomLevel = Random.Range(0, placement.Length);
+        List<CubeWithPosition> cubes = placement[randomLevel].CubeWithPosition;
         foreach(var cube in cubes)
         {
-            factory.Create(cube.Position);
+            factory.Create(cube);
         }
     }
 }
