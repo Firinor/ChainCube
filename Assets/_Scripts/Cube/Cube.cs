@@ -1,20 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(MeshRenderer), typeof(Rigidbody))]
 public class Cube : MonoBehaviour
 {
-    public bool IsInGame = false;
-
     [field: SerializeField]
-    public int score { get; private set; } = 0;
+    public int Score { get; set; } = 0;
+    
+    public bool IsInGame = false;
+    public CubeCollideEffect CollideEffect = new NormalCube();
+    public static Action<int> OnMerge;
 
     [Inject]
-    private CubeFactoryWithPool cubeFactory;
+    protected CubeFactoryWithPool cubeFactory;
+    [Inject]
+    private GameSettings settings;
 
     private Rigidbody rb;
     private MeshRenderer meshRenderer;
-
+    
     [Inject]
     private void Initialize()
     {
@@ -24,35 +30,48 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!IsInGame)
-            return;
-
-        if(other.tag == "Cube")
-        {
-            Cube otherCube = other.GetComponent<Cube>();
-            if(otherCube.score == score)
-            {
-                otherCube.IsInGame = false;
-                otherCube.gameObject.SetActive(false);
-                score *= 2;
-                cubeFactory.SetMaterial(this, score);
-                AddForce();
-            }
-        }
+        CollideEffect.OnTriggerEnter(this, other);
     }
 
+    public void RefreshMaterial()
+    {
+        StartCoroutine(cubeFactory.SetMaterial(this, Score));
+    }
+    public void GetReadyToLaunch()
+    {
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        gameObject.SetActive(true);
+        CollideEffect = new NormalCube();
+
+        CubeSliding cubeSliding = GetComponent<CubeSliding>();
+        if (cubeSliding == null)
+            cubeSliding = gameObject.AddComponent<CubeSliding>();
+        else
+            cubeSliding.SlidingOn();
+    }
+    public void Launch()
+    {
+        rb.isKinematic = false;
+        rb.AddForce(Vector3.forward * settings.PunchForce);
+    }
     public void SetScore(ECube cube)
     {
-        score = (int)cube;
+        Score = (int)cube;
     }
-
-    private void AddForce()
-    {
-        rb.AddForce(Vector3.up);
-    }
-
     public void SetMaterial(Material material)
     {
         meshRenderer.material = material;
+    }
+    public void AddUpForce()
+    {
+        rb.inertiaTensor = Vector3.zero;
+        rb.automaticInertiaTensor = true;
+
+        Vector3 upWithSpread = new Vector3(
+            Random.value * settings.SpreadForce, 
+            settings.UpForce, 
+            Random.value * settings.SpreadForce);
+
+        rb.AddForce(upWithSpread, ForceMode.Impulse);
     }
 }

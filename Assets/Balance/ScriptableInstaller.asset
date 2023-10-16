@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90149730a509a264cbfc04f65de4370a, type: 3}
   m_Name: ScriptableInstaller
   m_EditorClassIdentifier: 
+  weights: {fileID: 11400000, guid: 8cc4bbcc3c56f6f43b450bd8db52f000, type: 2}
+  settings: {fileID: 11400000, guid: 45523d09252751d499b3ed27dc4d9573, type: 2}

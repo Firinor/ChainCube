@@ -6,16 +6,14 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IPointerClickHandler
 {
     [Inject]
     private Player player;
-    [SerializeField]
-    private GameObject playerCube;
-    [SerializeField]
-    private float board;
-    [SerializeField]
-    private float sensitivity;
+    [Inject(Id = "PlayerCubeAnchor")]
+    private Transform playerCubeAnchor;
+    [Inject]
+    private GameSettings settings;
 
     public void OnDrag(PointerEventData eventData)
     {
-        Vector3 newPosition = playerCube.transform.position;
+        Vector3 newPosition = playerCubeAnchor.position;
 
         // Mouse.x = 1080 . Position.x => 1.55(board)
         // Mouse.x = 0 . Position.x => -1.55(board)
@@ -27,16 +25,19 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IPointerClickHandler
         float halfOfScreen = Screen.width / 2;//540
         float rate = (Input.mousePosition.x - halfOfScreen) / Screen.width;// -1/2 <=> 1/2
 
-        newPosition.x = rate * sensitivity;//sensitivity ~ 4
+        newPosition.x = rate * settings.Sensitivity;//sensitivity ~ 4
 
-        newPosition.x = Mathf.Clamp(newPosition.x, -board, board);
+        newPosition.x = Mathf.Clamp(newPosition.x, -settings.CubeBoard, settings.CubeBoard);
 
-        playerCube.transform.position = newPosition;
+        playerCubeAnchor.position = newPosition;
         player.SetCubePosition(newPosition);
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
-        player.Shoot();
+        player.TryShoot();
+    }
+    public void SwitchCubeTo(int cube)
+    {
+        player.SwitchCubeTo((ECube)cube);
     }
 }

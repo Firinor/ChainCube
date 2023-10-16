@@ -8,11 +8,12 @@ using Zenject;
 public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
 {
     [SerializeField]
-    private List<Cube> cubes;
+    private List<Cube> cubes = new();
     [SerializeField]
     private Dictionary<int, Material> materials = new();
     [SerializeField]
     private Cube prefab;
+
     [Inject]
     private DiContainer container;
 
@@ -46,7 +47,12 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
     {
         if (!materials.ContainsKey(cubeScore))
         {
-            AsyncOperationHandle<Material> loadHandle = Addressables.LoadAssetAsync<Material>(cubeScore.ToString());
+            AsyncOperationHandle<Material> loadHandle;
+
+            if(cubeScore > 0)
+                loadHandle = Addressables.LoadAssetAsync<Material>(cubeScore.ToString());
+            else
+                loadHandle = Addressables.LoadAssetAsync<Material>(((ECube)cubeScore).ToString());
 
             yield return loadHandle;
 
@@ -58,18 +64,23 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
         cube.SetMaterial(materials[cubeScore]);
     }
 
+    public void AddToList(Cube cube)
+    {
+        if (!cubes.Contains(cube))
+            cubes.Add(cube);
+    }
     public void ClearAll()
     {
         foreach(Cube cube in cubes)
         {
-            Destroy(cube.gameObject);
+            if(cube != null)
+                Destroy(cube.gameObject);
         }
         cubes.Clear();
         if (transform.childCount > 0)
             DestroyAllChild();
         GC.Collect();
     }
-
     private void DestroyAllChild()
     {
         int i = transform.childCount;

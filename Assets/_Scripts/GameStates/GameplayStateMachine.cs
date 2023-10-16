@@ -7,6 +7,16 @@ public class GameplayStateMachine
     private IState currentIState;
     private Dictionary<State, IState> states;
 
+    [Inject]
+    private void Initialize(InGameRules inGame, InPauseRules inPause)
+    {
+        states = new Dictionary<State, IState>();
+        states.Add(State.Pause, inPause);
+        states.Add(State.Game, inGame);
+
+        currentIState = states[State.Game];
+    }
+
     public void SetState(State newState) {
 
         if(newState != currentState)
@@ -18,17 +28,6 @@ public class GameplayStateMachine
             currentIState.Enter();
         }
     }
-
-    [Inject]
-    private void Initialize()
-    {
-        states = new Dictionary<State, IState>();
-        states.Add(State.Pause, new InPauseRules());
-        states.Add(State.Game, new InGameRules());
-
-        currentIState = states[State.Game];
-    }
-
     public void Tick()
     {
         currentIState.Tick();

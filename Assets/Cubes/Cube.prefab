@@ -168,4 +168,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c51f8e0a916a3499a9bdb5dc1982b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInGame: 0
   <score>k__BackingField: 2

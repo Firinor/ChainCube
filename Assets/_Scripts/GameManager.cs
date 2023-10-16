@@ -4,6 +4,9 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private InitialPlacement[] placement;
+
     [Inject]
     private CubeFactoryWithPool factory;
     [Inject]
@@ -11,16 +14,15 @@ public class GameManager : MonoBehaviour
     [Inject]
     private GameplayStateMachine stateMachine;
 
-    [SerializeField]
-    private InitialPlacement[] placement;
-
     private IState state;
 
     private void Awake()
     {
+        Cube.OnMerge += WinCheck;
+        player.OnLose += LoseGame;
         RestartLevel();
+        player.InitializeFirstCube();
     }
-
     private void Update()
     {
         stateMachine.Tick();
@@ -34,12 +36,23 @@ public class GameManager : MonoBehaviour
         stateMachine.SetState(State.Game);
     }
 
-   
+    private void WinCheck(int score)
+    {
+        if (score > 4096)
+        {
+            stateMachine.SetState(State.Pause);
+            Debug.Log("PLAYER WIN!!!");
+        }
+    }
+    private void LoseGame()
+    {
+        stateMachine.SetState(State.Pause);
+        Debug.Log("GAME OVER!!!");
+    }
     private void CleareScore()
     {
         player.CurrentScore.Value = 0;
     }
-
     private void InitialPlacement()
     {
         int randomLevel = Random.Range(0, placement.Length);
@@ -48,5 +61,11 @@ public class GameManager : MonoBehaviour
         {
             factory.Create(cube);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Cube.OnMerge -= WinCheck;
+        player.OnLose -= LoseGame;
     }
 }
