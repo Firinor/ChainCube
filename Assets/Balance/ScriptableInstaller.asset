@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weights: {fileID: 11400000, guid: 8cc4bbcc3c56f6f43b450bd8db52f000, type: 2}
   settings: {fileID: 11400000, guid: 45523d09252751d499b3ed27dc4d9573, type: 2}
+  cubids: {fileID: 11400000, guid: 46f36c391b56b6f4ab39d9b120e1f30e, type: 2}

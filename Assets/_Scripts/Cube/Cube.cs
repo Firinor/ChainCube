@@ -8,7 +8,9 @@ public class Cube : MonoBehaviour
 {
     [field: SerializeField]
     public int Score { get; set; } = 0;
-    
+    [field: SerializeField]
+    public ECubeForm form { get; private set; }
+
     public bool IsInGame = false;
     public CubeCollideEffect CollideEffect = new NormalCube();
     public static Action<int> OnMerge;
@@ -18,8 +20,10 @@ public class Cube : MonoBehaviour
     [Inject]
     private GameSettings settings;
 
+    public Collider Collider;
     private Rigidbody rb;
     private MeshRenderer meshRenderer;
+
     
     [Inject]
     private void Initialize()
@@ -35,7 +39,8 @@ public class Cube : MonoBehaviour
 
     public void RefreshMaterial()
     {
-        StartCoroutine(cubeFactory.SetMaterial(this, Score));
+        
+        cubeFactory.SetCubeParams(this, new(){Score = (ECube)Score, Form = form});
     }
     public void GetReadyToLaunch()
     {
@@ -44,7 +49,7 @@ public class Cube : MonoBehaviour
         CollideEffect = new NormalCube();
 
         CubeSliding cubeSliding = GetComponent<CubeSliding>();
-        if (cubeSliding == null)
+        if (cubeSliding is null)
             cubeSliding = gameObject.AddComponent<CubeSliding>();
         else
             cubeSliding.SlidingOn();
@@ -73,5 +78,11 @@ public class Cube : MonoBehaviour
             Random.value * settings.SpreadForce);
 
         rb.AddForce(upWithSpread, ForceMode.Impulse);
+    }
+
+    public void ToPool()
+    {
+        IsInGame = false;
+        gameObject.SetActive(false);
     }
 }

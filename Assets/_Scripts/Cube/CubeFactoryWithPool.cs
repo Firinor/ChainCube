@@ -1,67 +1,100 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
 {
     [SerializeField]
     private List<Cube> cubes = new();
     [SerializeField]
-    private Dictionary<int, Material> materials = new();
-    [SerializeField]
-    private Cube prefab;
+    private Dictionary<Cubid, Material> materials = new();
+
+    [Inject] 
+    private DiContainer container;
+    
+    private Cube CubePrefab;
+    private Cube SpherePrefab;
+    private Cube Bomb;
 
     [Inject]
-    private DiContainer container;
+    private void Initialize(Cubids cubids)
+    {
+        CubePrefab = cubids.CubePrefab;
+        SpherePrefab = cubids.SpherePrefab;
+        Bomb = container.InstantiatePrefabForComponent<Cube>(cubids.BombPrefab, transform);
+        Bomb.ToPool();
 
+        Cubid GhostCube = new()
+        {
+            Score = ECube.Ghost,
+            Form = ECubeForm.Cube
+        };
+        materials.Add(GhostCube, cubids.ghostMaterial);
+        Cubid GhostSphere = new()
+        {
+            Score = ECube.Ghost,
+            Form = ECubeForm.Sphere
+        };
+        materials.Add(GhostSphere, cubids.ghostMaterial);
+        
+        for (int i = 0; i < cubids.CubeMaterials.Count; i++)
+        {
+            Cubid Cube = new()
+            {
+                Score = (ECube)(2<<i),
+                Form = ECubeForm.Cube
+            };
+            materials.Add(Cube, cubids.CubeMaterials[i]);
+            Cubid Sphere = new()
+            {
+                Score = (ECube)(2<<i),
+                Form = ECubeForm.Sphere
+            };
+            materials.Add(Sphere, cubids.SphereMaterials[i]);
+        }
+    }
+    
     public Cube Create(object param)
     {
-        Cube newCube = cubes.Find(b => !b.IsInGame);
+        CubeWithPosition cubeParam = param as CubeWithPosition;
+        
+        Cube newCube = cubes.Find(
+            b => !b.IsInGame
+            && b.form == cubeParam.Cubid.Form);
 
-        if (newCube == null)
+        if (newCube is null)
         {
-            newCube = container.InstantiatePrefabForComponent<Cube>(prefab, transform);
+            if(cubeParam.Cubid.Form == ECubeForm.Cube)
+                newCube = container.InstantiatePrefabForComponent<Cube>(CubePrefab, transform);
+            else if(cubeParam.Cubid.Form == ECubeForm.Sphere)
+                newCube = container.InstantiatePrefabForComponent<Cube>(SpherePrefab, transform);
+            else
+                throw new Exception();
+
             cubes.Add(newCube);
         }
 
-        if(param is CubeWithPosition cubeParam)
-        {
-            newCube.transform.position = cubeParam.Position;
-            newCube.SetScore(cubeParam.Cube);
-            StartCoroutine(SetMaterial(newCube, (int)cubeParam.Cube));
-        }
-        else if (param is Vector3 cubePosition)
-        {
-            newCube.transform.position = cubePosition;
-        }
-
+        SetCubeParams(newCube, cubeParam.Cubid);
+        float deltaY = newCube.transform.localScale.x/2;
+        newCube.transform.position = cubeParam.Position + Vector3.up * deltaY;
+        
         newCube.IsInGame = true;
 
         return newCube;
     }
 
-    public IEnumerator<AsyncOperationHandle<Material>> SetMaterial(Cube cube, int cubeScore)
+    public void SetCubeParams(Cube cube, Cubid cubid)
     {
-        if (!materials.ContainsKey(cubeScore))
-        {
-            AsyncOperationHandle<Material> loadHandle;
-
-            if(cubeScore > 0)
-                loadHandle = Addressables.LoadAssetAsync<Material>(cubeScore.ToString());
-            else
-                loadHandle = Addressables.LoadAssetAsync<Material>(((ECube)cubeScore).ToString());
-
-            yield return loadHandle;
-
-            if (!materials.ContainsKey(cubeScore))
-            {
-                materials.Add(cubeScore, loadHandle.Result);
-            }
-        }
-        cube.SetMaterial(materials[cubeScore]);
+        cube.SetScore(cubid.Score);
+        cube.SetMaterial(materials[cubid]);
+        //int value = 8;
+        //string binary = Convert.ToString(value, 2);
+        //Which returns 1000.
+        string binary = Convert.ToString((int)cubid.Score, 2);
+        float scaleByScore = 1 + 0.1f * binary.Length;
+        cube.transform.localScale = Vector3.one * scaleByScore;
     }
 
     public void AddToList(Cube cube)

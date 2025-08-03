@@ -12,6 +12,20 @@
     c1024 = 1024,
     c2048 = 2048,
     c4096 = 4096,
+    
     Bomb = -1,
-    Rainbow = -2
+    Rainbow = -2,
+    Ghost = -3
+}
+
+public enum ECubeForm
+{
+    Cube = 0,
+    Sphere = 1
+}
+
+public struct Cubid
+{
+    public ECube Score;
+    public ECubeForm Form;
 }

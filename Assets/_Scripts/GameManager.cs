@@ -1,12 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private InitialPlacement[] placement;
-
     [Inject]
     private CubeFactoryWithPool factory;
     [Inject]
@@ -18,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Cube.OnMerge += WinCheck;
+        Cube.OnMerge += BonusCheck;
         player.OnLose += LoseGame;
         RestartLevel();
         player.InitializeFirstCube();
@@ -32,18 +28,22 @@ public class GameManager : MonoBehaviour
     {
         CleareScore();
         factory.ClearAll();
-        InitialPlacement();
         stateMachine.SetState(State.Game);
     }
 
-    private void WinCheck(int score)
+    private void BonusCheck(int score)
     {
         if (score > 4096)
         {
-            stateMachine.SetState(State.Pause);
-            Debug.Log("PLAYER WIN!!!");
+            AddRandomBonus();
         }
     }
+
+    private void AddRandomBonus()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void LoseGame()
     {
         stateMachine.SetState(State.Pause);
@@ -53,19 +53,10 @@ public class GameManager : MonoBehaviour
     {
         player.CurrentScore.Value = 0;
     }
-    private void InitialPlacement()
-    {
-        int randomLevel = Random.Range(0, placement.Length);
-        List<CubeWithPosition> cubes = placement[randomLevel].CubeWithPosition;
-        foreach(var cube in cubes)
-        {
-            factory.Create(cube);
-        }
-    }
 
     private void OnDestroy()
     {
-        Cube.OnMerge -= WinCheck;
+        Cube.OnMerge -= BonusCheck;
         player.OnLose -= LoseGame;
     }
 }

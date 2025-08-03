@@ -36,7 +36,11 @@ public class Player
         Cube TheFoundCube = playerCubeAnchor.GetComponentInChildren<Cube>();
         if(TheFoundCube != null)
         {
-            playerCubeData.Cube = ECube.c2;
+            playerCubeData.Cubid = new()
+            {
+                Score = ECube.c2,
+                Form = ECubeForm.Cube
+            };
             currentPlayerCube = TheFoundCube;
             currentPlayerCube.GetReadyToLaunch();
             cubeFactory.AddToList(TheFoundCube);
@@ -46,13 +50,18 @@ public class Player
             NewCube();
         }
     }
-    
-    public void SwitchCubeTo(ECube eCube)
+
+    public void SwitchCubeTo(int cube)
+    {
+        SwitchCubeTo(cubid: new(){Score = (ECube)cube, Form = playerCubeData.Cubid.Form});
+    }
+
+    public void SwitchCubeTo(Cubid cubid)
     {
         if (currentPlayerCube == null)
             return;
 
-        switch (eCube)
+        switch (cubid.Score)
         {
             case ECube.c2:
             case ECube.c4:
@@ -69,22 +78,24 @@ public class Player
                 currentPlayerCube.CollideEffect = new NormalCube();
                 break;
             case ECube.Bomb:
-                currentPlayerCube.CollideEffect = new Bomb();
+                //currentPlayerCube = cubeFactory.GetBomb;
                 break;
             case ECube.Rainbow:
                 currentPlayerCube.CollideEffect = new Rainbow();
                 break;
+            case ECube.Ghost:
+                currentPlayerCube.CollideEffect = new Ghost(currentPlayerCube.Collider);
+                break;
         }
-        playerCubeData.Cube = eCube;
-        currentPlayerCube.Score = (int)eCube;
+        playerCubeData.Cubid = cubid;
+        currentPlayerCube.Score = (int)cubid.Score;
         currentPlayerCube.RefreshMaterial();
     }
     public void NewCube()
     {
-        playerCubeData.Cube = GetRandomCube();
+        playerCubeData.Cubid = GetRandomCubid();
         currentPlayerCube = cubeFactory.Create(playerCubeData);
         currentPlayerCube.transform.parent = playerCubeAnchor;
-        currentPlayerCube.transform.localPosition = Vector3.zero;
         currentPlayerCube.GetReadyToLaunch();
     }
 
@@ -121,7 +132,7 @@ public class Player
         }
     }
 
-    private ECube GetRandomCube()
+    private Cubid GetRandomCubid()
     {
         int random = Random.Range(1, cubeChance.WeightOfAllElements+1);
         int index = 0, weigth = 0;
@@ -132,7 +143,15 @@ public class Player
             index++;
         }
 
-        return cubeChance.cubeWeightList[index-1].Cube;
+        int randomForm = Random.Range(0, maxExclusive: 2);
+
+        Cubid result = new()
+        {
+            Score = cubeChance.cubeWeightList[index-1].Cube,
+            Form = (ECubeForm)randomForm
+        };
+        
+        return result;
     }
     private void AddScore(int points)
     {

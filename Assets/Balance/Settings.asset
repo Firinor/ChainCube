@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30c934f526d600a499d988acf33c0124, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  PunchForce: 400
+  PunchForce: 600
   UpForce: 6
   SpreadForce: 0
   CubeBoard: 1.55
-  CubeReloadTime: 1
+  CubeReloadTime: 0.3
   Sensitivity: 4
+  Rainbow: 3
+  Bomb: 3
+  Ghost: 3

@@ -11,4 +11,8 @@ public class GameSettings : ScriptableObject
     [Space]
     public float CubeReloadTime;
     public float Sensitivity;
+    [Space] 
+    public int Rainbow;
+    public int Bomb;
+    public int Ghost;
 }
