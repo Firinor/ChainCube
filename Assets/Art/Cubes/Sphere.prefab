@@ -53,6 +53,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4334516218784724075, guid: 2dc0041c8463da94fb7af3add9757bf0, type: 3}
+      propertyPath: Trigger
+      value: 
+      objectReference: {fileID: 3278617521303570201}
+    - target: {fileID: 4334516218784724075, guid: 2dc0041c8463da94fb7af3add9757bf0, type: 3}
       propertyPath: Collider
       value: 
       objectReference: {fileID: 5748842892221114188}

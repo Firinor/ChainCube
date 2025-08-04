@@ -1,24 +1,16 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class LoseBox : MonoBehaviour
 {
-    public bool IsLose => cubes.Count > 0;
+    public Action OnLose;
 
-    private List<Cube> cubes = new();
-
+    [SerializeField] private Material loseMaterial;
+    [SerializeField] private MeshRenderer floor;
+    
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out Cube cube))
-        {
-            cubes.Add(cube);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent(out Cube cube))
-        {
-            cubes.Remove(cube);
-        }
+        floor.material = loseMaterial;
+        OnLose?.Invoke();//GAME OVER
     }
 }

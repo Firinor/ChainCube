@@ -8,8 +8,6 @@ public class Player
 {
     public IntReactiveProperty CurrentScore = new();
 
-    public Action OnLose;
-
     [Inject]
     private CubeFactoryWithPool cubeFactory;
     [Inject]
@@ -18,8 +16,6 @@ public class Player
     private Transform playerCubeAnchor;
     [Inject]
     private GameSettings settings;
-    [Inject]
-    private LoseBox loseBox;
 
     private Cube currentPlayerCube;
     private CubeWithPosition playerCubeData = new();
@@ -111,13 +107,7 @@ public class Player
             //At cooldown end
             if(cooldown <= 0)
             {
-                if (loseBox.IsLose)
-                {
-                    OnLose?.Invoke();//GAME OVER
-                    return;
-                }
-                else
-                    NewCube();
+                NewCube();
             }
         }
     }

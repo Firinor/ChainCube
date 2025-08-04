@@ -16,7 +16,7 @@ MonoBehaviour:
   UpForce: 6
   SpreadForce: 0
   CubeBoard: 1.55
-  CubeReloadTime: 0.3
+  CubeReloadTime: 0.25
   Sensitivity: 4
   Rainbow: 3
   Bomb: 3

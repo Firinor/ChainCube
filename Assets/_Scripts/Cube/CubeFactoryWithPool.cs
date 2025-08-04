@@ -18,13 +18,16 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
     private Cube SpherePrefab;
     private Cube Bomb;
 
+    private float minSize;
+    private float scaleStep;
+    
     [Inject]
     private void Initialize(Cubids cubids)
     {
         CubePrefab = cubids.CubePrefab;
         SpherePrefab = cubids.SpherePrefab;
         Bomb = container.InstantiatePrefabForComponent<Cube>(cubids.BombPrefab, transform);
-        Bomb.ToPool();
+        ToPool(Bomb);
 
         Cubid GhostCube = new()
         {
@@ -54,15 +57,22 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
             };
             materials.Add(Sphere, cubids.SphereMaterials[i]);
         }
+
+        minSize = cubids.MinSizeScale;
+        scaleStep = cubids.StepSizeScale;
+    }
+    
+    public void ToPool(Cube cube)
+    {
+        cubes.Add(cube);
+        gameObject.SetActive(false);
     }
     
     public Cube Create(object param)
     {
         CubeWithPosition cubeParam = param as CubeWithPosition;
         
-        Cube newCube = cubes.Find(
-            b => !b.IsInGame
-            && b.form == cubeParam.Cubid.Form);
+        Cube newCube = cubes.Find(c => c.form == cubeParam.Cubid.Form);
 
         if (newCube is null)
         {
@@ -73,14 +83,12 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
             else
                 throw new Exception();
 
-            cubes.Add(newCube);
+            newCube.OnDestroy += ToPool;
         }
 
         SetCubeParams(newCube, cubeParam.Cubid);
         float deltaY = newCube.transform.localScale.x/2;
         newCube.transform.position = cubeParam.Position + Vector3.up * deltaY;
-        
-        newCube.IsInGame = true;
 
         return newCube;
     }
@@ -93,7 +101,7 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
         //string binary = Convert.ToString(value, 2);
         //Which returns 1000.
         string binary = Convert.ToString((int)cubid.Score, 2);
-        float scaleByScore = 1 + 0.1f * binary.Length;
+        float scaleByScore = minSize + scaleStep * binary.Length;
         cube.transform.localScale = Vector3.one * scaleByScore;
     }
 

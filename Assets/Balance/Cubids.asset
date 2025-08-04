@@ -15,6 +15,8 @@ MonoBehaviour:
   CubePrefab: {fileID: 4334516218784724075, guid: 2dc0041c8463da94fb7af3add9757bf0, type: 3}
   SpherePrefab: {fileID: 120946086939925037, guid: 662f49e1d7ec82a49807712461b40ddc, type: 3}
   BombPrefab: {fileID: -9089556149282734546, guid: f7425371885910246af87e774ebf713e, type: 3}
+  MinSizeScale: 0.7
+  StepSizeScale: 0.1
   CubeMaterials:
   - {fileID: 2100000, guid: 16872c5ec3b73df4a911b4b64825520c, type: 2}
   - {fileID: 2100000, guid: 7154f9937ac05bc49b5023986d632c5f, type: 2}

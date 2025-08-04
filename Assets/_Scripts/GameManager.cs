@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour
     private Player player; 
     [Inject]
     private GameplayStateMachine stateMachine;
+    [Inject]
+    private LoseBox loseBox;
 
     private IState state;
 
     private void Awake()
     {
         Cube.OnMerge += BonusCheck;
-        player.OnLose += LoseGame;
+        loseBox.OnLose += LoseGame;
         RestartLevel();
         player.InitializeFirstCube();
     }
@@ -57,6 +59,6 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         Cube.OnMerge -= BonusCheck;
-        player.OnLose -= LoseGame;
+        loseBox.OnLose -= LoseGame;
     }
 }

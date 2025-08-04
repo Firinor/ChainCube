@@ -10,8 +10,7 @@ public class Ghost : CubeCollideEffect
     }
     public override void OnTriggerEnter(Cube cube, Collider other)
     {
-        if (!cube.IsInGame)
-            return;
+        //if (!cube.IsInGame)return;
 
         if (other.tag != "EndWall")
             return;

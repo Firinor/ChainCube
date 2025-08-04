@@ -4,8 +4,7 @@ public class Rainbow : CubeCollideEffect
 {
     public override void OnTriggerEnter(Cube cube, Collider other)
     {
-        if (!cube.IsInGame)
-            return;
+        //if (!cube.IsInGame) return;
 
         if (other.tag == "Cube" || other.tag == "EndWall")
         {
@@ -17,8 +16,7 @@ public class Rainbow : CubeCollideEffect
                 otherCube.AddUpForce();
                 Cube.OnMerge?.Invoke(otherCube.Score);
             }
-
-            cube.IsInGame = false;
+            
             cube.gameObject.SetActive(false);
         }
     }

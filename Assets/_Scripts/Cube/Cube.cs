@@ -10,20 +10,23 @@ public class Cube : MonoBehaviour
     public int Score { get; set; } = 0;
     [field: SerializeField]
     public ECubeForm form { get; private set; }
+    [SerializeField]
+    private bool isInGame;
+    public bool IsInGame => isInGame;
 
-    public bool IsInGame = false;
     public CubeCollideEffect CollideEffect = new NormalCube();
     public static Action<int> OnMerge;
+    public Action<Cube> OnDestroy;
 
     [Inject]
     protected CubeFactoryWithPool cubeFactory;
     [Inject]
     private GameSettings settings;
-
+    
     public Collider Collider;
+    public Collider Trigger;
     private Rigidbody rb;
     private MeshRenderer meshRenderer;
-
     
     [Inject]
     private void Initialize()
@@ -34,25 +37,41 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        CollideEffect.OnTriggerEnter(this, other);
+        if (!IsInGame) return;
+
+        if (other.CompareTag("Cube")
+            || other.CompareTag("EndWall"))
+        {
+            SlidingOff();
+            CollideEffect.OnTriggerEnter(this, other);
+        }
     }
 
     public void RefreshMaterial()
     {
-        
         cubeFactory.SetCubeParams(this, new(){Score = (ECube)Score, Form = form});
     }
     public void GetReadyToLaunch()
     {
         transform.rotation = Quaternion.Euler(Vector3.zero);
         gameObject.SetActive(true);
+        rb.isKinematic = true;
         CollideEffect = new NormalCube();
-
-        CubeSliding cubeSliding = GetComponent<CubeSliding>();
-        if (cubeSliding is null)
-            cubeSliding = gameObject.AddComponent<CubeSliding>();
-        else
-            cubeSliding.SlidingOn();
+        SlidingOn();
+    }
+    public void SlidingOn()
+    {
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        rb.constraints = RigidbodyConstraints.FreezePositionX 
+                         | RigidbodyConstraints.FreezePositionY 
+                         | RigidbodyConstraints.FreezeRotation;
+    }
+    private void SlidingOff()
+    {
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.None;
     }
     public void Launch()
     {
@@ -78,11 +97,5 @@ public class Cube : MonoBehaviour
             Random.value * settings.SpreadForce);
 
         rb.AddForce(upWithSpread, ForceMode.Impulse);
-    }
-
-    public void ToPool()
-    {
-        IsInGame = false;
-        gameObject.SetActive(false);
     }
 }
