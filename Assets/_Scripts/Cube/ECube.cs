@@ -21,7 +21,8 @@
 public enum ECubeForm
 {
     Cube = 0,
-    Sphere = 1
+    Sphere = 1,
+    Bomb = 2
 }
 
 public struct Cubid

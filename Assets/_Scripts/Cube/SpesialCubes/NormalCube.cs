@@ -4,26 +4,28 @@ public class NormalCube : CubeCollideEffect
 {
     public override void OnTriggerEnter(Cube cube, Collider other)
     {
-        if (!cube.IsInGame) return;
-
-        if (!other.CompareTag("Cube"))
+        if (!cube.IsInGame
+            || !other.CompareTag("Cube"))
             return;
         
         Cube otherCube = other.GetComponent<Cube>();
-        if (otherCube.Score != cube.Score)
+        
+        if(otherCube.Rigidbody.isKinematic
+            || otherCube.Score != cube.Score)
             return;
 
-        cube.OnDestroy?.Invoke(cube);
+        cube.Remove?.Invoke(cube);
 
+        GlobalEvents.OnMerge?.Invoke(cube, otherCube);
+        
         otherCube.Score *= 2;
         if(otherCube.Score <= 4096)
-            otherCube.RefreshMaterial();
+            otherCube.CheckView();
 
         //CheckNeighbors
         otherCube.Trigger.enabled = false;
         otherCube.Trigger.enabled = true;
+        
         otherCube.AddUpForce();
-
-        Cube.OnMerge?.Invoke(cube.Score);
     }
 }

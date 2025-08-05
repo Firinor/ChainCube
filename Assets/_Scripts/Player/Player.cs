@@ -24,7 +24,7 @@ public class Player
     [Inject]
     private void Initialize()
     {
-        Cube.OnMerge += AddScore;
+        GlobalEvents.OnMerge += AddScore;
     }
 
     public void InitializeFirstCube()
@@ -34,12 +34,12 @@ public class Player
         {
             playerCubeData.Cubid = new()
             {
-                Score = ECube.c2,
-                Form = ECubeForm.Cube
+                Score = (ECube)TheFoundCube.Score,
+                Form = TheFoundCube.form
             };
             currentPlayerCube = TheFoundCube;
             currentPlayerCube.GetReadyToLaunch();
-            cubeFactory.AddToList(TheFoundCube);
+            currentPlayerCube.CollideEffect = new NormalCube();
         }
         else
         {
@@ -74,8 +74,21 @@ public class Player
                 currentPlayerCube.CollideEffect = new NormalCube();
                 break;
             case ECube.Bomb:
-                //currentPlayerCube = cubeFactory.GetBomb;
-                break;
+                if (currentPlayerCube == cubeFactory.Bomb)
+                {
+                    Bomb bomb = currentPlayerCube.CollideEffect as Bomb;
+                    currentPlayerCube.RemoveCube();
+                    currentPlayerCube = bomb.Cancel();
+                }
+                else
+                {
+                    currentPlayerCube.RemoveCube();
+                    currentPlayerCube = cubeFactory.CreateBomb(currentPlayerCube);
+                    currentPlayerCube.transform.SetParent(playerCubeAnchor);
+                    currentPlayerCube.transform.localPosition = Vector3.zero;
+                }
+                currentPlayerCube.GetReadyToLaunch();
+                return;
             case ECube.Rainbow:
                 currentPlayerCube.CollideEffect = new Rainbow();
                 break;
@@ -85,7 +98,7 @@ public class Player
         }
         playerCubeData.Cubid = cubid;
         currentPlayerCube.Score = (int)cubid.Score;
-        currentPlayerCube.RefreshMaterial();
+        cubeFactory.RefreshView(currentPlayerCube);
     }
     public void NewCube()
     {
@@ -143,13 +156,13 @@ public class Player
         
         return result;
     }
-    private void AddScore(int points)
+    private void AddScore(Cube c1, Cube c2)
     {
-        CurrentScore.Value += points;
+        CurrentScore.Value += c1.Score;
     }
     
     ~Player()
     {
-        Cube.OnMerge -= AddScore;
+        GlobalEvents.OnMerge -= AddScore;
     }
 }

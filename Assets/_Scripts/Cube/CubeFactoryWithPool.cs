@@ -16,18 +16,31 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
     
     private Cube CubePrefab;
     private Cube SpherePrefab;
-    private Cube Bomb;
+    public Cube Bomb {get; private set;}
 
     private float minSize;
     private float scaleStep;
+
+    private int index;
+
+    [Header("VFX")]
+    [SerializeField]
+    private ParticleSystem[] boom;
+
+    [Header("SFX")]
+    [SerializeField]
+    private CubeSounds popSound;
+    [SerializeField]
+    private BoomSound boomSound;
     
     [Inject]
     private void Initialize(Cubids cubids)
     {
+        FindAllCubesOnScene();
+        
         CubePrefab = cubids.CubePrefab;
         SpherePrefab = cubids.SpherePrefab;
-        Bomb = container.InstantiatePrefabForComponent<Cube>(cubids.BombPrefab, transform);
-        ToPool(Bomb);
+        CreateBomb(cubids);
 
         Cubid GhostCube = new()
         {
@@ -61,11 +74,29 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
         minSize = cubids.MinSizeScale;
         scaleStep = cubids.StepSizeScale;
     }
-    
+
+    private void CreateBomb(Cubids cubids)
+    {
+        Bomb = container.InstantiatePrefabForComponent<Cube>(cubids.BombPrefab, transform);
+        Bomb.Remove += ToPool;
+        ToPool(Bomb);
+    }
+
+    private void FindAllCubesOnScene()
+    {
+        foreach (var cube in FindObjectsByType<Cube>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+        {
+            cube.Remove += ToPool;
+            cube.RefreshView += RefreshView;
+            if (!cube.gameObject.activeSelf)
+                ToPool(cube);
+        }
+    }
+
     public void ToPool(Cube cube)
     {
         cubes.Add(cube);
-        gameObject.SetActive(false);
+        cube.gameObject.SetActive(false);
     }
     
     public Cube Create(object param)
@@ -83,33 +114,64 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
             else
                 throw new Exception();
 
-            newCube.OnDestroy += ToPool;
+            newCube.name += index++;
+            newCube.Remove += ToPool;
+            newCube.RefreshView += RefreshView;
         }
 
-        SetCubeParams(newCube, cubeParam.Cubid);
+        newCube.Score = (int)cubeParam.Cubid.Score;
+        newCube.form = cubeParam.Cubid.Form;
+        newCube.CollideEffect = new NormalCube();
+        RefreshView(newCube);
         float deltaY = newCube.transform.localScale.x/2;
         newCube.transform.position = cubeParam.Position + Vector3.up * deltaY;
-
+        cubes.Remove(newCube);
         return newCube;
     }
 
-    public void SetCubeParams(Cube cube, Cubid cubid)
+    public void RefreshView(Cube cube)
     {
-        cube.SetScore(cubid.Score);
-        cube.SetMaterial(materials[cubid]);
+        if(cube.form == ECubeForm.Bomb) 
+            return;
+        
+        Cubid materialIndex = new()
+        {
+            Score = (ECube)cube.Score,
+            Form = cube.form
+        };
+        cube.SetMaterial(materials[materialIndex]);
         //int value = 8;
         //string binary = Convert.ToString(value, 2);
         //Which returns 1000.
-        string binary = Convert.ToString((int)cubid.Score, 2);
+        string binary = Convert.ToString(cube.Score, 2);
         float scaleByScore = minSize + scaleStep * binary.Length;
         cube.transform.localScale = Vector3.one * scaleByScore;
     }
 
-    public void AddToList(Cube cube)
+    public Cube CreateBomb(Cube fromCube)
     {
-        if (!cubes.Contains(cube))
-            cubes.Add(cube);
+        Bomb bombCollide = new Bomb(fromCube);
+        Bomb.CollideEffect = bombCollide;
+        bombCollide.BoomAction += pos =>
+        {
+            foreach (var particleSystem in boom)
+            {
+                particleSystem.Stop();
+                particleSystem.gameObject.SetActive(false);
+                particleSystem.transform.position = pos;
+                particleSystem.gameObject.SetActive(true);
+            }
+        };
+        bombCollide.BoomAction += pos =>
+        {
+            boomSound.transform.position = pos;
+            boomSound.Play();
+        };
+        cubes.Add(Bomb);
+        Bomb.gameObject.SetActive(false);
+        return Bomb;
     }
+    
     public void ClearAll()
     {
         foreach(Cube cube in cubes)

@@ -170,6 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Score>k__BackingField: 0
   <form>k__BackingField: 0
-  IsInGame: 0
+  isInGame: 0
   Collider: {fileID: 7860775502356414327}
   Trigger: {fileID: 528907028241344019}

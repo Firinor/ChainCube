@@ -12,9 +12,9 @@ public class Rainbow : CubeCollideEffect
             if (otherCube != null) 
             {
                 otherCube.Score *= 2;
-                otherCube.RefreshMaterial();
+                otherCube.CheckView();
                 otherCube.AddUpForce();
-                Cube.OnMerge?.Invoke(otherCube.Score);
+                GlobalEvents.OnMerge?.Invoke(cube, otherCube);
             }
             
             cube.gameObject.SetActive(false);

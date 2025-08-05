@@ -9,16 +9,14 @@ public class GameManager : MonoBehaviour
     private Player player; 
     [Inject]
     private GameplayStateMachine stateMachine;
-    [Inject]
-    private LoseBox loseBox;
 
     private IState state;
 
     private void Awake()
     {
-        Cube.OnMerge += BonusCheck;
-        loseBox.OnLose += LoseGame;
-        RestartLevel();
+        GlobalEvents.OnMerge += BonusCheck;
+        GlobalEvents.OnLose += LoseGame;
+        stateMachine.SetState(State.Game);
         player.InitializeFirstCube();
     }
     private void Update()
@@ -33,9 +31,9 @@ public class GameManager : MonoBehaviour
         stateMachine.SetState(State.Game);
     }
 
-    private void BonusCheck(int score)
+    private void BonusCheck(Cube c1, Cube c2)
     {
-        if (score > 4096)
+        if (c1.Score == 4096 && c2.Score == 4096)
         {
             AddRandomBonus();
         }
@@ -58,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Cube.OnMerge -= BonusCheck;
-        loseBox.OnLose -= LoseGame;
+        GlobalEvents.OnMerge -= BonusCheck;
+        GlobalEvents.OnLose -= LoseGame;
     }
 }

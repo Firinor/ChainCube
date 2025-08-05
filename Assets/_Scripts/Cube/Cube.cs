@@ -9,23 +9,24 @@ public class Cube : MonoBehaviour
     [field: SerializeField]
     public int Score { get; set; } = 0;
     [field: SerializeField]
-    public ECubeForm form { get; private set; }
+    public ECubeForm form { get; set; }
     [SerializeField]
     private bool isInGame;
     public bool IsInGame => isInGame;
 
     public CubeCollideEffect CollideEffect = new NormalCube();
-    public static Action<int> OnMerge;
-    public Action<Cube> OnDestroy;
-
-    [Inject]
-    protected CubeFactoryWithPool cubeFactory;
+    public Action<Cube> Remove;
+    public void RemoveCube(){Remove?.Invoke(this);}
+    public Action<Cube> RefreshView;
+    public void CheckView(){RefreshView?.Invoke(this);}
+    
     [Inject]
     private GameSettings settings;
     
     public Collider Collider;
     public Collider Trigger;
     private Rigidbody rb;
+    public Rigidbody Rigidbody => rb;
     private MeshRenderer meshRenderer;
     
     [Inject]
@@ -46,17 +47,12 @@ public class Cube : MonoBehaviour
             CollideEffect.OnTriggerEnter(this, other);
         }
     }
-
-    public void RefreshMaterial()
-    {
-        cubeFactory.SetCubeParams(this, new(){Score = (ECube)Score, Form = form});
-    }
     public void GetReadyToLaunch()
     {
+        isInGame = false;
         transform.rotation = Quaternion.Euler(Vector3.zero);
         gameObject.SetActive(true);
         rb.isKinematic = true;
-        CollideEffect = new NormalCube();
         SlidingOn();
     }
     public void SlidingOn()
@@ -77,10 +73,7 @@ public class Cube : MonoBehaviour
     {
         rb.isKinematic = false;
         rb.AddForce(Vector3.forward * settings.PunchForce);
-    }
-    public void SetScore(ECube cube)
-    {
-        Score = (int)cube;
+        isInGame = true;
     }
     public void SetMaterial(Material material)
     {
