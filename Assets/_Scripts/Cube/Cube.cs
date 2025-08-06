@@ -40,8 +40,14 @@ public class Cube : MonoBehaviour
     {
         if (!IsInGame) return;
 
-        if (other.CompareTag("Cube")
-            || other.CompareTag("EndWall"))
+        if (other.CompareTag("Cube"))
+        {
+            if(Score == (int)ECube.Ghost) return;//ghost's crutch
+            
+            SlidingOff();
+            CollideEffect.OnTriggerEnter(this, other);
+        } 
+        else if(other.CompareTag("EndWall"))
         {
             SlidingOff();
             CollideEffect.OnTriggerEnter(this, other);
