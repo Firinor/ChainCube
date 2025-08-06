@@ -10,6 +10,8 @@ public class Installer : MonoInstaller
         Container.Bind<GameplayStateMachine>().AsSingle();
         Container.Bind<InGameRules>().AsSingle();
         Container.Bind<InPauseRules>().AsSingle();
+        
+        Container.Bind<PlayerCubeMachine>().AsSingle();
     }
     
 }

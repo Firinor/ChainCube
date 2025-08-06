@@ -27,6 +27,18 @@ public enum ECubeForm
 
 public struct Cubid
 {
+    public Cubid(ECube score = default, ECubeForm form = ECubeForm.Cube)
+    {
+        Score = default;
+        Form = ECubeForm.Cube;
+        
+    }
+    public Cubid(Cube cube)
+    {
+        Score = (ECube)cube.Score;
+        Form = cube.form;
+    }
+    
     public ECube Score;
     public ECubeForm Form;
 }

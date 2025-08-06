@@ -34,7 +34,6 @@ public class PlayerInput : MonoBehaviour, IDragHandler, IPointerClickHandler
         newPosition.x = Mathf.Clamp(newPosition.x, -settings.CubeBoard, settings.CubeBoard);
 
         playerCubeAnchor.position = newPosition;
-        player.SetCubePosition(newPosition);
     }
 
     public void OnPointerClick(PointerEventData eventData)

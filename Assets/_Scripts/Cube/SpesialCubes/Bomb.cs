@@ -3,15 +3,11 @@ using UnityEngine;
 
 public class Bomb : CubeCollideEffect
 {
-    private Cube fromCube;
-
     private float explosionRadius = 2.6f;
     public Action<Vector3> BoomAction;
 
-    public Bomb(Cube cube)
+    public Bomb()
     {
-        fromCube = cube;
-
         BoomAction += Explode;
     }
     public override void OnTriggerEnter(Cube cube, Collider other)
@@ -25,7 +21,7 @@ public class Bomb : CubeCollideEffect
             if (otherCube != null)
                 otherCube.RemoveCube();
 
-            BoomAction?.Invoke(cube.transform.position);
+            BoomAction?.Invoke(cube.transform.position + cube.GetComponent<SphereCollider>().center);
             cube.RemoveCube();
         }
     }
@@ -40,10 +36,5 @@ public class Bomb : CubeCollideEffect
             if (other is not null)
                 other.AddUpForce();
         }
-    }
-
-    public Cube Cancel()
-    {
-        return fromCube;
     }
 }

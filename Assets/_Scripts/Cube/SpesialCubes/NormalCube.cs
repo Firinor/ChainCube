@@ -14,7 +14,7 @@ public class NormalCube : CubeCollideEffect
             || otherCube.Score != cube.Score)
             return;
 
-        cube.Remove?.Invoke(cube);
+        cube.RemoveCube();
 
         GlobalEvents.OnMerge?.Invoke(cube, otherCube);
         

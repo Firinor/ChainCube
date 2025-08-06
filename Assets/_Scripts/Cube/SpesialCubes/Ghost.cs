@@ -1,21 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Ghost : CubeCollideEffect
 {
-    private Collider _collider;
-    public Ghost(Collider collider)
+    private Cubid cubid;
+    private CubeFactoryWithPool factory;
+
+    public Ghost(Cubid cubid, CubeFactoryWithPool factory)
     {
-        _collider = collider;
-        _collider.enabled = false;
+        this.factory = factory;
+        this.cubid = cubid;
     }
     public override void OnTriggerEnter(Cube cube, Collider other)
     {
-        //if (!cube.IsInGame)return;
-
         if (other.tag != "EndWall")
             return;
         
+        cube.Rigidbody.velocity = Vector3.zero;
+        cube.Collider.enabled = true;
+        cube.Score = (int)cubid.Score;
+        factory.RefreshView(cube);
+        cube.Trigger.enabled = false;
         cube.CollideEffect = new NormalCube();
-        _collider.enabled = true;
+        cube.Trigger.enabled = true;
     }
 }

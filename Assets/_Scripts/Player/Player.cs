@@ -7,57 +7,25 @@ using Random = UnityEngine.Random;
 public class Player
 {
     public IntReactiveProperty CurrentScore = new();
-
-    [Inject]
-    private CubeFactoryWithPool cubeFactory;
-    [Inject]
-    private CubeChanceWeight cubeChance;
-    [Inject(Id = "PlayerCubeAnchor")]
-    private Transform playerCubeAnchor;
+    
     [Inject]
     private GameSettings settings;
 
-    private Cube currentPlayerCube;
-    private CubeWithPosition playerCubeData = new();
     private float cooldown;
-
+    private PlayerCubeMachine playerCubeMachine;
+    
     [Inject]
-    private void Initialize()
+    private void Initialize(DiContainer container)
     {
         GlobalEvents.OnMerge += AddScore;
-    }
-
-    public void InitializeFirstCube()
-    {
-        Cube TheFoundCube = playerCubeAnchor.GetComponentInChildren<Cube>();
-        if(TheFoundCube != null)
-        {
-            playerCubeData.Cubid = new()
-            {
-                Score = (ECube)TheFoundCube.Score,
-                Form = TheFoundCube.form
-            };
-            currentPlayerCube = TheFoundCube;
-            currentPlayerCube.GetReadyToLaunch();
-            currentPlayerCube.CollideEffect = new NormalCube();
-        }
-        else
-        {
-            NewCube();
-        }
+        playerCubeMachine = container.Resolve<PlayerCubeMachine>();
+        Cube playerStartCube = container.ResolveId<Transform>("PlayerCubeAnchor").GetComponentInChildren<Cube>();
+        playerCubeMachine.NewCube(playerStartCube);
     }
 
     public void SwitchCubeTo(int cube)
     {
-        SwitchCubeTo(cubid: new(){Score = (ECube)cube, Form = playerCubeData.Cubid.Form});
-    }
-
-    public void SwitchCubeTo(Cubid cubid)
-    {
-        if (currentPlayerCube == null)
-            return;
-
-        switch (cubid.Score)
+        switch ((ECube)cube)
         {
             case ECube.c2:
             case ECube.c4:
@@ -71,46 +39,25 @@ public class Player
             case ECube.c1024:
             case ECube.c2048:
             case ECube.c4096:
-                currentPlayerCube.CollideEffect = new NormalCube();
-                break;
+                playerCubeMachine.SwitchToStatus(new NormalCubeStatus());
+                return;
             case ECube.Bomb:
-                if (currentPlayerCube == cubeFactory.Bomb)
-                {
-                    Bomb bomb = currentPlayerCube.CollideEffect as Bomb;
-                    currentPlayerCube.RemoveCube();
-                    currentPlayerCube = bomb.Cancel();
-                }
-                else
-                {
-                    currentPlayerCube.RemoveCube();
-                    currentPlayerCube = cubeFactory.CreateBomb(currentPlayerCube);
-                    currentPlayerCube.transform.SetParent(playerCubeAnchor);
-                    currentPlayerCube.transform.localPosition = Vector3.zero;
-                }
-                currentPlayerCube.GetReadyToLaunch();
+                playerCubeMachine.SwitchToStatus(new BombStatus());
                 return;
             case ECube.Rainbow:
-                currentPlayerCube.CollideEffect = new Rainbow();
-                break;
+                playerCubeMachine.SwitchToStatus(new RainbowStatus());
+                return;
             case ECube.Ghost:
-                currentPlayerCube.CollideEffect = new Ghost(currentPlayerCube.Collider);
-                break;
+                playerCubeMachine.SwitchToStatus(new GhostStatus());
+                return;
         }
-        playerCubeData.Cubid = cubid;
-        currentPlayerCube.Score = (int)cubid.Score;
-        cubeFactory.RefreshView(currentPlayerCube);
+
+        throw new Exception();
     }
+    
     public void NewCube()
     {
-        playerCubeData.Cubid = GetRandomCubid();
-        currentPlayerCube = cubeFactory.Create(playerCubeData);
-        currentPlayerCube.transform.parent = playerCubeAnchor;
-        currentPlayerCube.GetReadyToLaunch();
-    }
-
-    public void SetCubePosition(Vector3 position)
-    {
-        playerCubeData.Position = position;
+        playerCubeMachine.NewCube();
     }
     public void Cooldown(float deltaTime)
     {
@@ -128,34 +75,11 @@ public class Player
     {
         if(cooldown <= 0)
         {
-            currentPlayerCube.transform.parent = cubeFactory.transform;
-            currentPlayerCube.Launch();
-            currentPlayerCube = null;
+            playerCubeMachine.TryShoot();
             cooldown += settings.CubeReloadTime;
         }
     }
-
-    private Cubid GetRandomCubid()
-    {
-        int random = Random.Range(1, cubeChance.WeightOfAllElements+1);
-        int index = 0, weigth = 0;
-
-        while (weigth < random)
-        {
-            weigth += cubeChance.cubeWeightList[index].Weight;
-            index++;
-        }
-
-        int randomForm = Random.Range(0, maxExclusive: 2);
-
-        Cubid result = new()
-        {
-            Score = cubeChance.cubeWeightList[index-1].Cube,
-            Form = (ECubeForm)randomForm
-        };
-        
-        return result;
-    }
+    
     private void AddScore(Cube c1, Cube c2)
     {
         CurrentScore.Value += c1.Score;

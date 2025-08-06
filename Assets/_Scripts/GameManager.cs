@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
         GlobalEvents.OnMerge += BonusCheck;
         GlobalEvents.OnLose += LoseGame;
         stateMachine.SetState(State.Game);
-        player.InitializeFirstCube();
     }
     private void Update()
     {
