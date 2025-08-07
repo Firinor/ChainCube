@@ -15,10 +15,10 @@ public class Rainbow : CubeCollideEffect
         
         if(otherCube.Score <= 0) return;
         
+        GlobalEvents.OnMerge?.Invoke(otherCube, cube);
         otherCube.Score *= 2;
         otherCube.CheckView();
         otherCube.AddUpForce();
-        GlobalEvents.OnMerge?.Invoke(cube, otherCube);
         cube.RemoveCube();
     }
 }

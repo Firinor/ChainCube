@@ -21,8 +21,11 @@ public class PlayerCubeMachine
 
         if (currentStatus is not null && currentStatus.ECube != newStatus.ECube)
         {
-            cachedCube = currentCube;
-            cachedCubid = new Cubid(cachedCube);
+            if (currentCube.Score > 0)
+            {
+                cachedCube = currentCube;
+                cachedCubid = new Cubid(cachedCube);
+            }
             
             newStatus.cubeFactory = cubeFactory;
             newStatus.currentCube = currentCube;
