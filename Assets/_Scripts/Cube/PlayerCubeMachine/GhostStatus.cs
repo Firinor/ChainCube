@@ -21,4 +21,10 @@
     {
         currentCube.Collider.enabled = true;
     }
+
+    public override void Launch(Player player)
+    {
+        player.GhostCount.Value--;
+        base.Launch(player);
+    }
 }

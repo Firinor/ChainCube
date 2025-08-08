@@ -15,7 +15,7 @@
         currentCube.RemoveCube();
     }
 
-    public virtual void Launch()
+    public virtual void Launch(Player player)
     {
         currentCube.transform.parent = cubeFactory.transform;
         currentCube.Launch();

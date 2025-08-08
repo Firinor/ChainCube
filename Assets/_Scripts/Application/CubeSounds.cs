@@ -16,11 +16,22 @@ public class CubeSounds : MonoBehaviour
             transform.position = c1.transform.position;
             Play();
         };
+        GlobalEvents.OnSoundChange += ChangeVolume;
     }
 
+    private void ChangeVolume(float volume)
+    {
+        source.volume = volume;
+    }
+    
     public void Play()
     {
         int random = Random.Range(0, pop.Length);
         source.PlayOneShot(pop[random]);
+    }
+    
+    private void OnDestroy()
+    {
+        GlobalEvents.OnSoundChange -= ChangeVolume;
     }
 }

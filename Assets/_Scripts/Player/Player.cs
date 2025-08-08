@@ -2,11 +2,14 @@
 using UniRx;
 using UnityEngine;
 using Zenject;
-using Random = UnityEngine.Random;
 
 public class Player
 {
     public IntReactiveProperty CurrentScore = new();
+    
+    public IntReactiveProperty RainbowCount = new(1);
+    public IntReactiveProperty BombCount = new(3);
+    public IntReactiveProperty GhostCount = new(3);
     
     [Inject]
     private GameSettings settings;
@@ -42,13 +45,16 @@ public class Player
                 playerCubeMachine.SwitchToStatus(new NormalCubeStatus());
                 return;
             case ECube.Bomb:
-                playerCubeMachine.SwitchToStatus(new BombStatus());
+                if(BombCount.Value > 0)
+                    playerCubeMachine.SwitchToStatus(new BombStatus());
                 return;
             case ECube.Rainbow:
-                playerCubeMachine.SwitchToStatus(new RainbowStatus());
+                if(RainbowCount.Value > 0)
+                    playerCubeMachine.SwitchToStatus(new RainbowStatus());
                 return;
             case ECube.Ghost:
-                playerCubeMachine.SwitchToStatus(new GhostStatus());
+                if(GhostCount.Value > 0)
+                    playerCubeMachine.SwitchToStatus(new GhostStatus());
                 return;
         }
 
@@ -88,5 +94,10 @@ public class Player
     ~Player()
     {
         GlobalEvents.OnMerge -= AddScore;
+        
+        CurrentScore.Dispose();
+        BombCount.Dispose();
+        RainbowCount.Dispose();
+        GhostCount.Dispose();
     }
 }

@@ -10,4 +10,10 @@
         currentCube.CollideEffect = new Rainbow();
         base.OnEnter();
     }
+    
+    public override void Launch(Player player)
+    {
+        player.RainbowCount.Value--;
+        base.Launch(player);
+    }
 }

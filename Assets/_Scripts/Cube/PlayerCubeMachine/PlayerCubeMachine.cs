@@ -8,6 +8,8 @@ public class PlayerCubeMachine
     private CubeFactoryWithPool cubeFactory;
     [Inject]
     private CubeChanceWeight cubeChance;
+    [Inject]
+    private Player player;
 
     private Cube currentCube;
 
@@ -57,7 +59,7 @@ public class PlayerCubeMachine
 
     public void TryShoot()
     {
-        currentStatus.Launch();
+        currentStatus.Launch(player);
         currentStatus = null;
         
         currentCube = null;

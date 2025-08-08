@@ -8,11 +8,13 @@ public class GameplayStateMachine
     private Dictionary<State, IState> states;
 
     [Inject]
-    private void Initialize(InGameRules inGame, InPauseRules inPause)
+    private void Initialize(InInitializeRules isInit, InGameRules inGame, InPauseRules inPause, InEndRules inEnd)
     {
         states = new Dictionary<State, IState>();
+        states.Add(State.Initialize, isInit);
         states.Add(State.Pause, inPause);
         states.Add(State.Game, inGame);
+        states.Add(State.End, inEnd);
 
         currentIState = states[State.Game];
     }

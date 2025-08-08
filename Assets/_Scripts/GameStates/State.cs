@@ -1,5 +1,7 @@
 ﻿public enum State
 {
+    Initialize,
     Game,
-    Pause
+    Pause,
+    End
 }

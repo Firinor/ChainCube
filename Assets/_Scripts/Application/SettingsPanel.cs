@@ -1,38 +1,20 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SettingsPanel : MonoBehaviour
 {
-    public Button BackgroundSoundButton;
-    public Image BackgroundSoundImage;
-    public Slider BackgroundSoundSlider;
     public Button EffectsSoundButton;
     public Image EffectsSoundImage;
     public Slider EffectsSoundSlider;
 
-    [SerializeField] private Sprite _BackgroundOn;
-    [SerializeField] private Sprite _BackgroundOff;
     [SerializeField] private Sprite _EffectsOn;
     [SerializeField] private Sprite _EffectsOff;
 
-    public void SwitchBackgroundSound()
+    private void Awake()
     {
-        if (BackgroundSoundImage.sprite == _BackgroundOn)
-            BackgroundSoundImage.sprite = _BackgroundOff;
-        else
-            BackgroundSoundImage.sprite = _BackgroundOn;
-    }
-    public void BackgroundSoundOn()
-    {
-        BackgroundSoundImage.sprite = _BackgroundOn;
-    }
-    public void BackgroundSoundOff()
-    {
-        BackgroundSoundImage.sprite = _BackgroundOff;
-    }
-    public void SerBackgroundVolume(float volume)
-    {
-        BackgroundSoundSlider.value = volume;
+        EffectsSoundSlider.onValueChanged.AddListener(SerEffectsVolume);
+        EffectsSoundButton.onClick.AddListener(SwitchEffectsSound);
     }
 
     public void SwitchEffectsSound()
@@ -56,5 +38,10 @@ public class SettingsPanel : MonoBehaviour
     public void SerEffectsVolume(float volume)
     {
         EffectsSoundSlider.value = volume;
+        if (volume == 0)
+            EffectsSoundOff();
+        else
+            EffectsSoundOn();
+        GlobalEvents.OnSoundChange?.Invoke(volume);
     }
 }

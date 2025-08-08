@@ -22,8 +22,9 @@ public class BombStatus : PlayerCubeStatus
         cubeFactory.ToPlayerHand(currentCube);
         currentCube.GetReadyToLaunch();
     }
-    public override void Launch()
+    public override void Launch(Player player)
     {
+        player.BombCount.Value--;
         bomb.transform.parent = cubeFactory.transform;
         bomb.Launch();
     }
