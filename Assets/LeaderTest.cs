@@ -1,24 +1,21 @@
+using Firestore;
 using UnityEngine;
 
 public class LeaderTest : MonoBehaviour
 {
     public string Name;
     public int Score;
-    
-    private DreamloLeaderboard leaderboard = new();
 
-    [ContextMenu("SendScore")]
-    public void SendScore()
+    [ContextMenu("Get")]
+    public void Get()
     {
-        leaderboard = new();
-
-        StartCoroutine(leaderboard.AddScore(Name, Score));
+        var leaderboard = new LeaderboardAPI();
+        StartCoroutine(leaderboard.Start());
     }
-    [ContextMenu("GetScore")]
-    public void GetScore()
+    [ContextMenu("Send")]
+    public async void Send()
     {
-        leaderboard = new();
-
-        StartCoroutine(leaderboard.DownloadTopScores());
+        var leaderboard = new LeaderboardAPI();
+        await leaderboard.CreateDocumentAsync(Name, Score, this);
     }
 }

@@ -3880,8 +3880,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e10be871ec5434d84970a652f0d217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: "\u0451\u0451"
-  Score: 2
+  Name: 12
+  Score: 2004
 --- !u!114 &866231911
 MonoBehaviour:
   m_ObjectHideFlags: 0
