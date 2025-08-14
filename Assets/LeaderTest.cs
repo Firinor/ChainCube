@@ -10,7 +10,7 @@ public class LeaderTest : MonoBehaviour
     public void Get()
     {
         var leaderboard = new LeaderboardAPI();
-        StartCoroutine(leaderboard.Start());
+        StartCoroutine(leaderboard.GetLeaderboardData());
     }
     [ContextMenu("Send")]
     public async void Send()

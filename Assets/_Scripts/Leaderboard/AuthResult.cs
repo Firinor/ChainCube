@@ -1,12 +1,15 @@
 ﻿using System;
 
-[Serializable]
-public struct AuthResult
+namespace Firestore
 {
-    public string kind;
-    public string localId;
-    public string email;
-    public string displayName;
-    public string idToken;
-    public string refreshToken;
+    [Serializable]
+    public struct AuthResult
+    {
+        public string kind;
+        public string localId;
+        public string email;
+        public string displayName;
+        public string idToken;
+        public string refreshToken;
+    }
 }

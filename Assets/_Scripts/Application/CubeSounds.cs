@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
@@ -9,19 +10,22 @@ public class CubeSounds : MonoBehaviour
     [SerializeField]
     private AudioSource source;
 
-    private void Awake()
+    [Inject]
+    private void Instantiate()
     {
-        GlobalEvents.OnMerge += (c1, c2) =>
-        {
-            transform.position = c1.transform.position;
-            Play();
-        };
+        GlobalEvents.OnMerge += MoveSourse;
         GlobalEvents.OnSoundChange += ChangeVolume;
     }
 
     private void ChangeVolume(float volume)
     {
         source.volume = volume;
+    }
+
+    private void MoveSourse(Cube c1, Cube c2)
+    {
+        transform.position = c1.transform.position;
+        Play();
     }
     
     public void Play()
@@ -32,6 +36,7 @@ public class CubeSounds : MonoBehaviour
     
     private void OnDestroy()
     {
+        GlobalEvents.OnMerge -= MoveSourse;
         GlobalEvents.OnSoundChange -= ChangeVolume;
     }
 }

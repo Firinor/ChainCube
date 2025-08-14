@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     [Inject]
     private GameplayStateMachine stateMachine;
 
+    [SerializeField]
+    private GameObject LosePanel;
+    [SerializeField] 
+    private GameObject WinPanel;
+
     private IState state;
 
     private void Awake()
@@ -46,8 +51,12 @@ public class GameManager : MonoBehaviour
     private void LoseGame()
     {
         stateMachine.SetState(State.Pause);
-        Debug.Log("GAME OVER!!!");
+        if (player.isNewRecord)
+            WinPanel.SetActive(true);
+        else
+            LosePanel.SetActive(true);
     }
+
     private void CleareScore()
     {
         player.CurrentScore.Value = 0;

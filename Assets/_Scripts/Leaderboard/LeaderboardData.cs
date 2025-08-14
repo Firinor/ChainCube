@@ -13,7 +13,7 @@ namespace Firestore
         {
             public Fields fields;
             public string Name => fields.name.stringValue;
-            public int Score => int.Parse(fields.score.integerValue);
+            public string Score => fields.score.integerValue;
 
             [Serializable]
             public struct Fields {

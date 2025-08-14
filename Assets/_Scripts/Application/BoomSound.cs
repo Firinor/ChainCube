@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(AudioSource))]
 public class BoomSound : MonoBehaviour
@@ -9,7 +9,8 @@ public class BoomSound : MonoBehaviour
     [SerializeField]
     private AudioSource source;
 
-    private void Awake()
+    [Inject]
+    private void Instantiate()
     {
         GlobalEvents.OnSoundChange += ChangeVolume;
     }

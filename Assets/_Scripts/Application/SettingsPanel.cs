@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +10,9 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private Sprite _EffectsOn;
     [SerializeField] private Sprite _EffectsOff;
 
-    private void Awake()
+    public void Initialize()
     {
-        EffectsSoundSlider.onValueChanged.AddListener(SerEffectsVolume);
+        EffectsSoundSlider.onValueChanged.AddListener(SetEffectsVolume);
         EffectsSoundButton.onClick.AddListener(SwitchEffectsSound);
     }
 
@@ -35,7 +34,7 @@ public class SettingsPanel : MonoBehaviour
         EffectsSoundImage.sprite = _EffectsOff;
     }
 
-    public void SerEffectsVolume(float volume)
+    public void SetEffectsVolume(float volume)
     {
         EffectsSoundSlider.value = volume;
         if (volume == 0)

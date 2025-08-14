@@ -6,10 +6,12 @@ using Zenject;
 public class Player
 {
     public IntReactiveProperty CurrentScore = new();
+    public bool isNewRecord = false;
+    public int oldRecord;
     
     public IntReactiveProperty RainbowCount = new(1);
-    public IntReactiveProperty BombCount = new(3);
-    public IntReactiveProperty GhostCount = new(3);
+    public IntReactiveProperty BombCount = new(1);
+    public IntReactiveProperty GhostCount = new(1);
     
     [Inject]
     private GameSettings settings;

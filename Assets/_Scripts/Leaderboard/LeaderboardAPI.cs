@@ -16,15 +16,16 @@ namespace Firestore
         private const string COLLECTION_NAME = "Leaderboard";
         private const string URL =
             "https://firestore.googleapis.com/v1/projects/"+PROJECT_NAME+"/databases/(default)/documents/"+COLLECTION_NAME;
+        
         private string idToken;
 
-        public IEnumerator Start()
+        public IEnumerator GetLeaderboardData(Action<LeaderboardData> onSuccess = null)
         {
             yield return SignInAnonymously();
 
             if (!string.IsNullOrEmpty(idToken))
             {
-                yield return GetFirestoreData();
+                yield return GetFirestoreData(onSuccess);
             }
         }
 
@@ -60,7 +61,7 @@ namespace Firestore
             }
         }
 
-        private IEnumerator GetFirestoreData()
+        private IEnumerator GetFirestoreData(Action<LeaderboardData> onSuccess)
         {
             using (UnityWebRequest request = UnityWebRequest.Get(URL))
             {
@@ -73,19 +74,16 @@ namespace Firestore
                 {
                     var response = JsonConvert.DeserializeObject<LeaderboardData>(request.downloadHandler.text);
 
-                    foreach (var doc in response.documents)
-                    {
-                        Debug.Log(doc.Name + ": " + doc.Score);
-                    }
+                    onSuccess?.Invoke(response);
                 }
-                else
+                /*else
                 {
                     Debug.LogError("GetDataError: " + request.error);
-                }
+                }*/
             }
         }
         
-        public async Task CreateDocumentAsync(string playerName, int score, MonoBehaviour mono)
+        public async Task<bool> CreateDocumentAsync(string playerName, int score, MonoBehaviour mono)
         {
             await CoroutineAsTask(SignInAnonymously());
             
@@ -127,18 +125,21 @@ namespace Firestore
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
+                    //Debug.Log(responseBody);
+                    return true;
                 }
-                else
+                /*else
                 {
                     Debug.Log($"Error: {response.StatusCode}");
                     string errorContent = await response.Content.ReadAsStringAsync();
                     Debug.Log(errorContent);
-                }
+                }*/
             }
             catch (Exception ex)
             {
                 Debug.Log($"Exception: {ex.Message}");
             }
+            return false;
         }
     }
 }

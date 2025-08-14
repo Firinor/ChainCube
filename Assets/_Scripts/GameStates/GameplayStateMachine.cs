@@ -3,7 +3,7 @@ using Zenject;
 
 public class GameplayStateMachine
 {
-    private State currentState;
+    private State currentState = State.Initialize;
     private IState currentIState;
     private Dictionary<State, IState> states;
 
@@ -16,7 +16,9 @@ public class GameplayStateMachine
         states.Add(State.Game, inGame);
         states.Add(State.End, inEnd);
 
-        currentIState = states[State.Game];
+        //State.Initialize
+        currentIState = states[currentState];
+        currentIState.Enter();
     }
 
     public void SetState(State newState) {

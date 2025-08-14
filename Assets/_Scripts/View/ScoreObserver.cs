@@ -23,7 +23,8 @@ public class ScoreObserver : MonoBehaviour, IObserver<int>
         text.text = "Score : " + value.ToString();
     }
 
-    private void OnEnable()
+    [Inject]
+    private void Instantiate()
     {
         player.CurrentScore.Subscribe(this);
     }

@@ -15,7 +15,8 @@ public class PlayerSpesialPresenter : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI ghostCountText;
 
-    private void Awake()
+    [Inject]
+    private void Instantiate()
     {
         player.BombCount.Subscribe(ChangeBombCount);
         player.GhostCount.Subscribe(ChangeGhostCount);
