@@ -6,7 +6,7 @@ public class Bomb : CubeCollideEffect
     private float explosionRadius = 2.6f;
     public Action<Vector3> BoomAction;
 
-    public Bomb()
+    public Bomb(SceneEvents events) : base(events)
     {
         BoomAction += Explode;
     }

@@ -14,7 +14,7 @@ public class Cube : MonoBehaviour
     private bool isInGame;
     public bool IsInGame => isInGame;
 
-    public CubeCollideEffect CollideEffect = new NormalCube();
+    public CubeCollideEffect CollideEffect;
     public Action<Cube> Remove;
     public void RemoveCube(){Remove?.Invoke(this);}
     public Action<Cube> RefreshView;
@@ -22,6 +22,8 @@ public class Cube : MonoBehaviour
     
     [Inject]
     private GameSettings settings;
+    [Inject]
+    private SceneEvents events;
     
     public Collider Collider;
     public Collider Trigger;
@@ -34,6 +36,7 @@ public class Cube : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
+        CollideEffect = new NormalCube(events);
     }
 
     private void OnTriggerEnter(Collider other)

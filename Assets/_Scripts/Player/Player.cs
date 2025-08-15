@@ -15,6 +15,8 @@ public class Player
     
     [Inject]
     private GameSettings settings;
+    [Inject]
+    private SceneEvents events;
 
     private float cooldown;
     private PlayerCubeMachine playerCubeMachine;
@@ -22,7 +24,7 @@ public class Player
     [Inject]
     private void Initialize(DiContainer container)
     {
-        GlobalEvents.OnMerge += AddScore;
+        events.OnMerge += AddScore;
         playerCubeMachine = container.Resolve<PlayerCubeMachine>();
         Cube playerStartCube = container.ResolveId<Transform>("PlayerCubeAnchor").GetComponentInChildren<Cube>();
         playerCubeMachine.NewCube(playerStartCube);
@@ -44,19 +46,19 @@ public class Player
             case ECube.c1024:
             case ECube.c2048:
             case ECube.c4096:
-                playerCubeMachine.SwitchToStatus(new NormalCubeStatus());
+                playerCubeMachine.SwitchToStatus(new NormalCubeStatus(events));
                 return;
             case ECube.Bomb:
                 if(BombCount.Value > 0)
-                    playerCubeMachine.SwitchToStatus(new BombStatus());
+                    playerCubeMachine.SwitchToStatus(new BombStatus(events));
                 return;
             case ECube.Rainbow:
                 if(RainbowCount.Value > 0)
-                    playerCubeMachine.SwitchToStatus(new RainbowStatus());
+                    playerCubeMachine.SwitchToStatus(new RainbowStatus(events));
                 return;
             case ECube.Ghost:
                 if(GhostCount.Value > 0)
-                    playerCubeMachine.SwitchToStatus(new GhostStatus());
+                    playerCubeMachine.SwitchToStatus(new GhostStatus(events));
                 return;
         }
 
@@ -95,7 +97,7 @@ public class Player
     
     ~Player()
     {
-        GlobalEvents.OnMerge -= AddScore;
+        events.OnMerge -= AddScore;
         
         CurrentScore.Dispose();
         BombCount.Dispose();

@@ -4,7 +4,7 @@ public class BombStatus : PlayerCubeStatus
 {
     private Cube bomb;
 
-    public BombStatus()
+    public BombStatus(SceneEvents events) : base(events)
     {
         ECube = ECube.Bomb;
     }

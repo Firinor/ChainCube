@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class NormalCube : CubeCollideEffect
 {
+    public NormalCube(SceneEvents events) : base(events) { }
+    
     public override void OnTriggerEnter(Cube cube, Collider other)
     {
         if (!cube.IsInGame
@@ -16,7 +18,7 @@ public class NormalCube : CubeCollideEffect
 
         cube.RemoveCube();
 
-        GlobalEvents.OnMerge?.Invoke(cube, otherCube);
+        events.OnMerge?.Invoke(cube, otherCube);
         
         otherCube.Score *= 2;
         if(otherCube.Score <= 4096)

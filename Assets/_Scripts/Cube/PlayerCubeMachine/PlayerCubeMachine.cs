@@ -10,6 +10,8 @@ public class PlayerCubeMachine
     private CubeChanceWeight cubeChance;
     [Inject]
     private Player player;
+    [Inject]
+    private SceneEvents events;
 
     private Cube currentCube;
 
@@ -49,7 +51,7 @@ public class PlayerCubeMachine
                 cachedCubid = default;
             }
 
-            currentStatus = new NormalCubeStatus();
+            currentStatus = new NormalCubeStatus(events);
             currentStatus.cubeFactory = cubeFactory;
             currentStatus.currentCube = currentCube;
             currentStatus.OnEnter();
@@ -79,7 +81,7 @@ public class PlayerCubeMachine
             currentCube = cube;
         }
         
-        SwitchToStatus(new NormalCubeStatus());
+        SwitchToStatus(new NormalCubeStatus(events));
         currentCube.GetReadyToLaunch();
     }
     

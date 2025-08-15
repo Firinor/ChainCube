@@ -1,6 +1,6 @@
 ﻿public class GhostStatus : PlayerCubeStatus
 {
-    public GhostStatus()
+    public GhostStatus(SceneEvents events) : base(events)
     {
         ECube = ECube.Ghost;
     }
@@ -12,7 +12,7 @@
             Score = (ECube)currentCube.Score,
             Form = currentCube.form
         };
-        currentCube.CollideEffect = new Ghost(сachedPlayerCubid, cubeFactory);
+        currentCube.CollideEffect = new Ghost(сachedPlayerCubid, cubeFactory, events);
         currentCube.Score = (int)ECube.Ghost;
         base.OnEnter();
     }

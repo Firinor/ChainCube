@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Rainbow : CubeCollideEffect
 {
+    public Rainbow(SceneEvents events) : base(events) { }
+    
     public override void OnTriggerEnter(Cube cube, Collider other)
     {
         if (!cube.IsInGame) return;
@@ -15,7 +17,7 @@ public class Rainbow : CubeCollideEffect
         
         if(otherCube.Score <= 0) return;
         
-        GlobalEvents.OnMerge?.Invoke(otherCube, cube);
+        events.OnMerge?.Invoke(otherCube, cube);
         otherCube.Score *= 2;
         otherCube.CheckView();
         otherCube.AddUpForce();

@@ -5,7 +5,7 @@ public class Ghost : CubeCollideEffect
     private Cubid cubid;
     private CubeFactoryWithPool factory;
 
-    public Ghost(Cubid cubid, CubeFactoryWithPool factory)
+    public Ghost(Cubid cubid, CubeFactoryWithPool factory, SceneEvents events) : base(events)
     {
         this.factory = factory;
         this.cubid = cubid;
@@ -20,7 +20,7 @@ public class Ghost : CubeCollideEffect
         cube.Score = (int)cubid.Score;
         factory.RefreshView(cube);
         cube.Trigger.enabled = false;
-        cube.CollideEffect = new NormalCube();
+        cube.CollideEffect = new NormalCube(events);
         cube.Trigger.enabled = true;
     }
 }

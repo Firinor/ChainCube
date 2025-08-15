@@ -2,17 +2,19 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(AudioSource))]
-public class BoomSound : MonoBehaviour
+public class OneSoundPlayer : MonoBehaviour
 {
-    public AudioClip boom;
+    public AudioClip clip;
 
     [SerializeField]
     private AudioSource source;
 
+    [Inject] private SceneEvents events;
     [Inject]
     private void Instantiate()
     {
-        GlobalEvents.OnSoundChange += ChangeVolume;
+        events.OnSoundChange += ChangeVolume;
+        ChangeVolume(PlayerPrefs.GetFloat(PrefsKey.Sound));
     }
 
     private void ChangeVolume(float volume)
@@ -22,11 +24,11 @@ public class BoomSound : MonoBehaviour
 
     public void Play()
     {
-        source.PlayOneShot(boom);
+        source.PlayOneShot(clip);
     }
 
     private void OnDestroy()
     {
-        GlobalEvents.OnSoundChange -= ChangeVolume;
+        events.OnSoundChange -= ChangeVolume;
     }
 }

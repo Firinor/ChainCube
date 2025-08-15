@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
@@ -14,6 +15,8 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
     private DiContainer container;
     [Inject(Id = "PlayerCubeAnchor")]
     private Transform playerHand;
+    [Inject] 
+    private SceneEvents events;
 
     private Cube CubePrefab;
     private Cube SpherePrefab;
@@ -29,12 +32,12 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
     [Header("VFX")]
     [SerializeField]
     private ParticleSystem[] boom;
-
+    
     [Header("SFX")]
     [SerializeField]
-    private CubeSounds popSound;
+    private ArraySoundsPlayer popSoundPlayer;
     [SerializeField]
-    private BoomSound boomSound;
+    private OneSoundPlayer oneSoundPlayer;
     
     [Inject]
     private void Initialize(Cubids cubids)
@@ -147,7 +150,7 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
 
         newCube.Score = (int)cubeParam.Score;
         newCube.form = cubeParam.Form;
-        newCube.CollideEffect = new NormalCube();
+        newCube.CollideEffect = new NormalCube(events);
         RefreshView(newCube);
         ToPlayerHand(newCube);
         cubes.Remove(newCube);
@@ -189,7 +192,7 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
         if (bomb is null)
             bomb = CreateBomb();
         
-        Bomb bombCollide = new Bomb();
+        Bomb bombCollide = new Bomb(events);
         bomb.CollideEffect = bombCollide;
         bombCollide.BoomAction += pos =>
         {
@@ -203,8 +206,8 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
         };
         bombCollide.BoomAction += pos =>
         {
-            boomSound.transform.position = pos;
-            boomSound.Play();
+            oneSoundPlayer.transform.position = pos;
+            oneSoundPlayer.Play();
         };
         cubes.Add(bomb);
         bomb.transform.parent = playerHand;

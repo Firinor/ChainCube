@@ -3,18 +3,21 @@ using Zenject;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
-public class CubeSounds : MonoBehaviour
+public class ArraySoundsPlayer : MonoBehaviour
 {
     public AudioClip[] pop;
 
     [SerializeField]
     private AudioSource source;
+    [Inject] 
+    private SceneEvents events;
 
     [Inject]
     private void Instantiate()
     {
-        GlobalEvents.OnMerge += MoveSourse;
-        GlobalEvents.OnSoundChange += ChangeVolume;
+        events.OnMerge += MoveSourse;
+        events.OnSoundChange += ChangeVolume;
+        ChangeVolume(PlayerPrefs.GetFloat(PrefsKey.Sound));
     }
 
     private void ChangeVolume(float volume)
@@ -36,7 +39,7 @@ public class CubeSounds : MonoBehaviour
     
     private void OnDestroy()
     {
-        GlobalEvents.OnMerge -= MoveSourse;
-        GlobalEvents.OnSoundChange -= ChangeVolume;
+        events.OnMerge -= MoveSourse;
+        events.OnSoundChange -= ChangeVolume;
     }
 }
