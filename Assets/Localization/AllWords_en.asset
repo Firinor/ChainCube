@@ -20,47 +20,45 @@ MonoBehaviour:
     - rid: 4067800853484142652
   m_TableData:
   - m_Id: 167960567808
-    m_Localized: 'Best Score: {0}'
+    m_Localized: 'BEST SCORE: {0}'
     m_Metadata:
       m_Items:
       - rid: 4067800853484142652
   - m_Id: 205709303808
-    m_Localized: 'Score: {0}'
+    m_Localized: 'SCORE: {0}'
     m_Metadata:
       m_Items:
       - rid: 4067800853484142652
   - m_Id: 244263346176
-    m_Localized: Restart
+    m_Localized: RESTART
     m_Metadata:
       m_Items: []
   - m_Id: 518776348672
-    m_Localized: Send score
+    m_Localized: SEND SCORE
     m_Metadata:
       m_Items: []
   - m_Id: 724527931392
-    m_Localized: Skip
+    m_Localized: SKIP
     m_Metadata:
       m_Items: []
   - m_Id: 6087851565056
-    m_Localized: English
+    m_Localized: ENGLISH
     m_Metadata:
       m_Items: []
   - m_Id: 6307863781376
-    m_Localized: Leaderboard
+    m_Localized: LEADERBOARD
     m_Metadata:
       m_Items: []
   - m_Id: 6446439391232
-    m_Localized: Loading...
+    m_Localized: LOADING...
     m_Metadata:
       m_Items: []
   - m_Id: 6755849003008
-    m_Localized: 'New
-
-      Record!'
+    m_Localized: "NEW \nRECORD!"
     m_Metadata:
       m_Items: []
   - m_Id: 7078235791360
-    m_Localized: Enter name...
+    m_Localized: ENTER NAME...
     m_Metadata:
       m_Items: []
   - m_Id: 7651379044352

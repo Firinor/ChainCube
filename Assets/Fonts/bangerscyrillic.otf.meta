@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4a9767010cda1d5499977731cd742491
+guid: 4b25b7e96e3c2b54fa55c00b7aac564b
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Bangers
+  - Bangers Cyrillic
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

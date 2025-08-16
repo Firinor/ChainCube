@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bangers NoShadows
+  m_Name: OutlineBangerscyrillicMaterial
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_Parent: {fileID: 3595906441252518848, guid: 2e833b394480c524d925c8b4fa5ede57, type: 2}
+  m_Parent: {fileID: -4097993913265283319, guid: 03a84bf3d9e6f9e4aaa32a3be8bca3df, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -25,6 +25,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _OutlineWidth: 0
-    m_Colors: []
+    - _OutlineWidth: 0.17
+    m_Colors:
+    - _OutlineColor: {r: 0.49908745, g: 0.0342725, b: 0.004856432, a: 1}
   m_BuildTextureStacks: []

@@ -1,6 +1,7 @@
 using System.Linq;
 using Firestore;
 using UnityEngine;
+using Zenject;
 
 public class LeaderboardPanel : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class LeaderboardPanel : MonoBehaviour
     private GameObject BestScores;
     [SerializeField] 
     private GameObject LoadingText;
+    [Inject]
+    private Player player;
     
     private void Awake()
     {
@@ -33,6 +36,8 @@ public class LeaderboardPanel : MonoBehaviour
             entries[i].Scores.text = playerRecord.Score;
             i++;
         }
+
+        player.oldRecord = int.Parse(entries[i-1].Scores.text);
         BestScores.SetActive(true);
         LoadingText.SetActive(false);
     }

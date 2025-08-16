@@ -9,9 +9,9 @@ public class Player
     public bool isNewRecord = false;
     public int oldRecord;
     
-    public IntReactiveProperty RainbowCount = new(1);
-    public IntReactiveProperty BombCount = new(1);
-    public IntReactiveProperty GhostCount = new(1);
+    public IntReactiveProperty RainbowCount = new(2);
+    public IntReactiveProperty BombCount = new(2);
+    public IntReactiveProperty GhostCount = new(2);
     
     [Inject]
     private GameSettings settings;

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f8ef68ef13d494948ac6c17228b953aa
+guid: 3c42c90400504ea44b5bd359b4b4a4d3
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Electronic Highway Sign
+  - Bangers
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

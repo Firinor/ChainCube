@@ -20,9 +20,11 @@ public class NormalCube : CubeCollideEffect
 
         events.OnMerge?.Invoke(cube, otherCube);
         
-        otherCube.Score *= 2;
-        if(otherCube.Score <= 4096)
+        if (otherCube.Score < 4096)
+        {
+            otherCube.Score *= 2;
             otherCube.CheckView();
+        }
 
         //CheckNeighbors
         otherCube.Trigger.enabled = false;

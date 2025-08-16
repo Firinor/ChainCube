@@ -16,8 +16,59 @@ MonoBehaviour:
     m_Code: tr
   m_SharedData: {fileID: 11400000, guid: 4e3e1f034353e694a85612bef33159bc, type: 2}
   m_Metadata:
-    m_Items: []
-  m_TableData: []
+    m_Items:
+    - rid: 4067800867143417856
+  m_TableData:
+  - m_Id: 167960567808
+    m_Localized: "EN \u0130Y\u0130 SKOR: {0}"
+    m_Metadata:
+      m_Items:
+      - rid: 4067800867143417856
+  - m_Id: 6087851565056
+    m_Localized: "T\xDCRK\xC7E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7078235791360
+    m_Localized: "\u0130S\u0130M G\u0130R\u0130N..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6307863781376
+    m_Localized: "L\u0130DER TABLOSU"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6446439391232
+    m_Localized: "Y\xDCKLEN\u0130YOR..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7651379044352
+    m_Localized: "OYUN B\u0130TT\u0130!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6755849003008
+    m_Localized: "YEN\u0130 \nREKOR!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 244263346176
+    m_Localized: TEKRAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 205709303808
+    m_Localized: 'SKOR: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 4067800867143417856
+  - m_Id: 518776348672
+    m_Localized: "SKORU G\xD6NDER"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 724527931392
+    m_Localized: ATLA
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 4067800867143417856
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00e03a1b2700000000e03ae52f000000

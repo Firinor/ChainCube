@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     private SceneEvents events;
 
     [SerializeField]
+    private OneSoundPlayer EndBell;
+    [SerializeField]
     private GameObject LosePanel;
     [SerializeField] 
     private NewBestScorePanel WinPanel;
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
     private void MatchEnd()
     {
         stateMachine.SetState(State.Pause);
+        EndBell.Play();
         StartCoroutine(ToEndScreen());
         
     }
@@ -64,9 +67,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator ToEndScreen()
     {
         yield return new WaitForSeconds(3);
-        if (player.isNewRecord)
+        if (player.CurrentScore.Value > player.oldRecord)
         {
             WinPanel.gameObject.SetActive(true);
+            WinPanel.TextCounter.EndNumber = player.CurrentScore.Value;
             WinPanel.GetComponent<FirAnimationsManager>().StartAnimations();
         }
         else

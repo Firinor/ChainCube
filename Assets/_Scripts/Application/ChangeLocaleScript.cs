@@ -5,10 +5,11 @@ using UnityEngine.Localization.Settings;
 public class ChangeLocaleScript : MonoBehaviour
 {
     private int localeIndex;
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return LocalizationSettings.InitializationOperation;
         localeIndex = PlayerPrefs.GetInt(PrefsKey.Language);
-        ChangeLocale(localeIndex);
+        Change(localeIndex);
     }
 
     public void ChangeLocale(int index)
@@ -19,12 +20,11 @@ public class ChangeLocaleScript : MonoBehaviour
         
         localeIndex = index;
         PlayerPrefs.SetInt(PrefsKey.Language, index);
-        StartCoroutine(Change(index));
+        Change(index);
     }
 
-    private IEnumerator Change(int index)
+    private void Change(int index)
     {
-        yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
     }
 }
