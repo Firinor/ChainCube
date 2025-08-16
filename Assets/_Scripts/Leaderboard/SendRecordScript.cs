@@ -1,3 +1,4 @@
+using System.Collections;
 using Firestore;
 using UnityEngine;
 using Zenject;
@@ -8,11 +9,16 @@ public class SendRecordScript : MonoBehaviour
     private Player player;
     [SerializeField] 
     private Restart restart;
-    
-    public async void SendRecord()
+
+    public void SendRecord()
+    {
+        StartCoroutine(SendRecordCoroutine());
+    }
+
+    public IEnumerator SendRecordCoroutine()
     {
         string playerName = PlayerPrefs.GetString(PrefsKey.PlayerName);
-        await new LeaderboardAPI().CreateDocumentAsync(playerName, player.CurrentScore.Value, this);
+        yield return new LeaderboardAPI().CreateDocumentAsync(playerName, player.CurrentScore.Value, this);
         restart.OnClickRestart();
     }
 }
