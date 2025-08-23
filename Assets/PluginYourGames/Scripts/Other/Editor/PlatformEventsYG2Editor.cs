@@ -20,12 +20,8 @@ namespace YG.EditorScr
             platforms = serializedObject.FindProperty("platforms");
             whenToEvent = serializedObject.FindProperty("whenToEvent");
             unityEvents = serializedObject.FindProperty("platformAction");
-
-#if RU_YG2
-            m_AddButonContent = EditorGUIUtility.TrTextContent("�������� ���������");
-#else
+            
             m_AddButonContent = EditorGUIUtility.TrTextContent("Add platform");
-#endif
 
             string[] allPlatforms = GetAllPlatforms();
             options = new GUIContent[allPlatforms.Length];
