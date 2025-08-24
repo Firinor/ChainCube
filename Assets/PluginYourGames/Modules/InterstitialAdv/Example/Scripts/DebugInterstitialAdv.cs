@@ -9,11 +9,7 @@ namespace YG.Example
 
         private void Update()
         {
-#if RU_YG2
-            string translate = "Таймер до рекламы: ";
-#else
             string translate = "Timer before adv: ";
-#endif
             timerText.text = translate + YG2.timerInterAdv.ToString("00.0");
         }
     }

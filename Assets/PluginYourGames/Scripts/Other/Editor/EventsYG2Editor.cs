@@ -15,11 +15,7 @@ namespace YG.EditorScr
 
         protected virtual void OnEnable()
         {
-#if RU_YG2
-            m_AddButonContent = EditorGUIUtility.TrTextContent("Добавить новый тип события");
-#else
             m_AddButonContent = EditorGUIUtility.TrTextContent("Add New Event Type");
-#endif
             m_DelegatesProperty = serializedObject.FindProperty("m_Delegates");
             m_EventIDName = new GUIContent("");
             m_IconToolbarMinus = new GUIContent(EditorGUIUtility.IconContent("Toolbar Minus"));

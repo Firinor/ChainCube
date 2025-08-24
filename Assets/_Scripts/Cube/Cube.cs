@@ -77,12 +77,14 @@ public class Cube : MonoBehaviour
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.None;
+        gameObject.layer = (int)ECubePhysicsLayer.Cube;
     }
     public void Launch()
     {
         rb.isKinematic = false;
         rb.AddForce(Vector3.forward * settings.PunchForce);
         isInGame = true;
+        gameObject.layer = (int)ECubePhysicsLayer.Fly;
     }
     public void SetMaterial(Material material)
     {

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
@@ -22,7 +21,7 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
     private Cube SpherePrefab;
     private Cube BombPrefab;
     
-    public List<Cube> Bombes = new();
+    public List<Cube> Bombs = new();
 
     private float minSize;
     private float scaleStep;
@@ -118,7 +117,7 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
 
     private void ToBombPool(Cube bomb)
     {
-        Bombes.Add(bomb);
+        Bombs.Add(bomb);
         bomb.gameObject.SetActive(false);
     }
     
@@ -183,11 +182,12 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
         float deltaY = cube.transform.localScale.x/2;
         cube.transform.SetParent(playerHand);
         cube.transform.localPosition = Vector3.up * deltaY;
+        cube.gameObject.layer = (int)ECubePhysicsLayer.Player;
     }
     
     public Cube GetBomb()
     {
-        Cube bomb = Bombes.Find(b => !b.gameObject.activeSelf);
+        Cube bomb = Bombs.Find(b => !b.gameObject.activeSelf);
 
         if (bomb is null)
             bomb = CreateBomb();
