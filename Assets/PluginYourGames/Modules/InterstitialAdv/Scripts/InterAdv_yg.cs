@@ -146,20 +146,12 @@ namespace YG.Insides
                 if (infoYG.InterstitialAdv.postponeCallByFail)
                 {
                     SetTimerInterAdv(infoYG.InterstitialAdv.postponeCallTimer);
-#if RU_YG2
-                    string message = "Реклама не была показана. Следующий запрос через:";
-#else
                     string message = "The advertisement was not shown. The next request is via:";
-#endif
                     Message($"{message} {infoYG.InterstitialAdv.postponeCallTimer}");
                 }
                 else
                 {
-#if RU_YG2
-                    Message("Реклама не была показана. Ждём следующего запроса.");
-#else
                     Message("The advertisement was not shown. We are waiting for the next request.");
-#endif
                 }
             }
             YG2.PauseGame(false);

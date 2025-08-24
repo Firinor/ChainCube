@@ -57,7 +57,7 @@ namespace FirAnimations
                 return;
             }
             
-            _time += Time.deltaTime;
+            _time += Time.unscaledDeltaTime;
             float curveValue = Curve.Evaluate(_time);
             mainComponent.anchoredPosition = StartPosition.AncoredPosition + (delta.AncoredPosition * curveValue);
             mainComponent.localScale = StartPosition.Scale + (delta.Scale * curveValue);

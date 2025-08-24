@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Laggs : MonoBehaviour
 {
-    void Awake()
+    void Start()
+    {
+        To10();
+    }
+    [ContextMenu("To10")]
+    void To10()
     {
         Application.targetFrameRate = 10;
-    
     }
-
-    void Update()
+    [ContextMenu("ToMax")]
+    void ToMax()
     {
-        
+        Application.targetFrameRate = 0;
     }
 }
