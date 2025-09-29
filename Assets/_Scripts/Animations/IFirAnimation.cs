@@ -2,7 +2,11 @@
 {
     public interface IFirAnimation
     {
-        public void Initialize();
+        public void Initialize()
+        {
+            Stop();
+            ToStartPoint();
+        }
         public void Play();
         public void Stop();
         public void ToStartPoint();
