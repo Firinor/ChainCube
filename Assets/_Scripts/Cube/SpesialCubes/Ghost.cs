@@ -15,7 +15,7 @@ public class Ghost : CubeCollideEffect
         if (other.tag != "EndWall")
             return;
         
-        cube.Rigidbody.velocity = Vector3.zero;
+        cube.Rigidbody.linearVelocity = Vector3.zero;
         cube.Collider.enabled = true;
         cube.Score = (int)cubid.Score;
         factory.RefreshView(cube);

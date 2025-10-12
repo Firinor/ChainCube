@@ -4,22 +4,34 @@ using UnityEngine;
 
 namespace FirAnimations
 {
-    public class FirAnimationsManager : MonoBehaviour
+    public class FirAnimationsManager : MonoBehaviour, IFirAnimation
     {
+        [SerializeField, Range(0, 1)]
+        private float _time;
+        public float _timeLimit;
         [SerializeField] 
         private Animation[] animations;
-
+        
         [Serializable]
         private class Animation
         {
             public InterfaceReference<IFirAnimation> animation;
             public float delay;
         }
-        private float _time;
         
-        public float _timeLimit;
         public Action OnEndAllAnimations;
 
+        
+        public void Play()
+        {
+            StartAnimations();
+        }
+
+        public void Stop()
+        {
+            ToEndPoint();
+        }
+        
         [ContextMenu("StartAnimations")]
         public void StartAnimations()
         {
@@ -46,10 +58,10 @@ namespace FirAnimations
             animation.Play();
         }
 
-        private void Update()
+        public void Update()
         {
-            _time += Time.deltaTime;
-            if (_time > _timeLimit)
+            _time += Time.deltaTime/_timeLimit;
+            if (_time >= 1)
             {
                 enabled = false;
                 foreach (var animation in animations)
@@ -59,6 +71,7 @@ namespace FirAnimations
                 OnEndAllAnimations?.Invoke();
             }
         }
+
         [ContextMenu("ToStartPoint")]
         public void ToStartPoint()
         {
@@ -66,6 +79,8 @@ namespace FirAnimations
             {
                 animation.animation.Value.ToStartPoint();
             }
+            
+            _time = 0;
         }
         [ContextMenu("ToEndPoint")]
         public void ToEndPoint()
@@ -74,6 +89,8 @@ namespace FirAnimations
             {
                 animation.animation.Value.ToEndPoint();
             }
+
+            _time = 1;
         }
     }
 }

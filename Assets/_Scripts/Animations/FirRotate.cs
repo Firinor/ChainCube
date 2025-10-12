@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace FirAnimations
 {
+    [ExecuteInEditMode]
     public class FirRotate : MonoBehaviour, IFirAnimation
     {
         [SerializeField] private float speed;
