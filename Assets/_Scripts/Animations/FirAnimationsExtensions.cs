@@ -7,12 +7,12 @@ namespace FirAnimations
     {
         public static void PlayFirTextAnimation(this TextMeshProUGUI textMesh, FirTextAnimationData data)
         {
-            TextAnimation animation = textMesh.gameObject.GetComponent<TextAnimation>();
+            FirTextFontSizeAnimation animation = textMesh.gameObject.GetComponent<FirTextFontSizeAnimation>();
             if(animation is null) 
-                animation = textMesh.gameObject.AddComponent<TextAnimation>();
+                animation = textMesh.gameObject.AddComponent<FirTextFontSizeAnimation>();
             animation.OnComplete = null;
                 
-            animation.textComponent = textMesh;
+            //animation.text = textMesh;
             textMesh.text = data.Text;
             animation.Curve = data.LifeLine;
             animation.EndPosition = data.MaxFontSize;

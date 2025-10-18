@@ -15,8 +15,6 @@ public class NewBestScorePanel : MonoBehaviour
     [SerializeField]
     public TMP_InputField PlayerNameInputField;
 
-    public TextCounterAnimation TextCounter;
-    
     [Inject]
     public void Initialize()
     {

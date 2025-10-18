@@ -4,20 +4,13 @@ using UnityEngine;
 
 namespace FirAnimations
 {
-    public class FirAnimationsManager : MonoBehaviour, IFirAnimation
+    public class FirAnimationsManager : MonoBehaviour
     {
         [SerializeField, Range(0, 1)]
         private float _time;
         public float _timeLimit;
         [SerializeField] 
         private Animation[] animations;
-        
-        [Serializable]
-        private class Animation
-        {
-            public InterfaceReference<IFirAnimation> animation;
-            public float delay;
-        }
         
         public Action OnEndAllAnimations;
 
@@ -37,15 +30,15 @@ namespace FirAnimations
         {
             _time = 0;
 
-            foreach (var animation in animations)
+            /*foreach (var animation in animations)
             {
                 StartCoroutine(PlayAnimation(animation.animation.Value, animation.delay));
-            }
+            }*/
 
             enabled = true;
         }
 
-        private IEnumerator PlayAnimation(IFirAnimation animation, float delay = 0)
+        private IEnumerator PlayAnimation(FirAnimation animation, float delay = 0)
         {
             animation.Initialize();
             float time = 0;
@@ -66,7 +59,7 @@ namespace FirAnimations
                 enabled = false;
                 foreach (var animation in animations)
                 {
-                    animation.animation.Value.Stop();
+                    //animation.animation.Value.Stop();
                 }
                 OnEndAllAnimations?.Invoke();
             }
@@ -77,7 +70,7 @@ namespace FirAnimations
         {
             foreach (var animation in animations)
             {
-                animation.animation.Value.ToStartPoint();
+                //animation.animation.Value.ToStartPoint();
             }
             
             _time = 0;
@@ -87,7 +80,7 @@ namespace FirAnimations
         {
             foreach (var animation in animations)
             {
-                animation.animation.Value.ToEndPoint();
+                //animation.animation.Value.ToEndPoint();
             }
 
             _time = 1;

@@ -521,8 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -565,6 +564,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &59223637
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,8 +894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -937,6 +937,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &112907193
 GameObject:
   m_ObjectHideFlags: 0
@@ -7589,7 +7591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1557502860}
+  m_Sprite: {fileID: 1787902743}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7755,8 +7757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -7790,6 +7791,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &407479714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9152,7 +9155,6 @@ GameObject:
   - component: {fileID: 651202932}
   - component: {fileID: 651202934}
   - component: {fileID: 651202933}
-  - component: {fileID: 651202935}
   m_Layer: 5
   m_Name: YourReward
   m_TagString: Untagged
@@ -9219,27 +9221,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651202931}
   m_CullTransparentMesh: 1
---- !u!114 &651202935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651202931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74004faf8130b4c4daff6b8f96961403, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _time: 0
-  _timeLimit: 12
-  animations:
-  - animation:
-      underlyingValue: {fileID: 2028244978}
-    delay: 0
-  - animation:
-      underlyingValue: {fileID: 2028244978}
-    delay: 0
 --- !u!1 &656825722
 GameObject:
   m_ObjectHideFlags: 0
@@ -9347,8 +9328,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9365,8 +9346,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 103.051094
+  m_fontSizeBase: 103.051094
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10315,8 +10296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -10341,6 +10321,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &768524664
 GameObject:
   m_ObjectHideFlags: 0
@@ -11399,52 +11381,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!28 &879996381
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 3
-  m_Width: 1
-  m_Height: 2
-  m_CompleteImageSize: 12
-  m_MipsStripped: 0
-  m_TextureFormat: 4
-  m_MipCount: 2
-  m_IsReadable: 1
-  m_IsPreProcessed: 0
-  m_IgnoreMipmapLimit: 1
-  m_MipmapLimitGroupName: 
-  m_StreamingMipmaps: 0
-  m_StreamingMipmapsPriority: 0
-  m_VTOnly: 0
-  m_AlphaIsTransparency: 0
-  m_ImageCount: 1
-  m_TextureDimension: 2
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_LightmapFormat: 0
-  m_ColorSpace: 1
-  m_PlatformBlob: 
-  image data: 12
-  _typelessdata: ffad00ff000000ff7f5600ff
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &883387060
 GameObject:
   m_ObjectHideFlags: 0
@@ -12342,8 +12278,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 180
-  m_fontSizeBase: 180
+  m_fontSize: 0
+  m_fontSizeBase: 0
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12406,9 +12342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8c3278e11c4cef9a47d4aa749f13ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartPosition: 0
-  EndPosition: 180
-  textComponent: {fileID: 1067453089}
+  Time: 0
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -12433,6 +12368,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: 0
+  EndPosition: 180
 --- !u!114 &1067453092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12665,8 +12602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -12700,6 +12636,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1085193375 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9100322495852513300, guid: 36d85f4e52e309c4da1d313068b80383, type: 3}
@@ -13144,10 +13082,8 @@ MonoBehaviour:
   Pattern: '{0}'
   textComponent: {fileID: 1158607712}
   Curve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 0
+    - time: 0
       value: 0
       inSlope: 0.4871478
       outSlope: 0.125
@@ -13155,8 +13091,7 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0.043127496
-    - serializedVersion: 3
-      time: 8
+    - time: 8
       value: 1
       inSlope: 0.0270464
       outSlope: 0.13866012
@@ -13167,6 +13102,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _time: 0
+  _endTime: 0
+  delta: 0
 --- !u!114 &1158607715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13180,8 +13118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -13215,6 +13152,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1193191412
 GameObject:
   m_ObjectHideFlags: 0
@@ -14708,8 +14647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -14734,6 +14672,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!223 &1412099586
 Canvas:
   m_ObjectHideFlags: 0
@@ -15109,8 +15049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -15144,6 +15083,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &1460445222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15864,217 +15805,6 @@ MonoBehaviour:
   rainbowCountText: {fileID: 1511818863}
   bombCountText: {fileID: 2031821143}
   ghostCountText: {fileID: 382062480}
---- !u!213 &1557502860
-Sprite:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Rect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 2
-  m_Offset: {x: 0, y: 0}
-  m_Border: {x: 0, y: 0, z: 0, w: 0}
-  m_PixelsToUnits: 100
-  m_Pivot: {x: 0.5, y: 0.5}
-  m_Extrude: 0
-  m_IsPolygon: 0
-  m_AtlasName: 
-  m_PackingTag: 
-  m_RenderDataKey:
-    00000000000000000000000000000000: 0
-  m_AtlasTags: []
-  m_SpriteAtlas: {fileID: 0}
-  m_RD:
-    serializedVersion: 3
-    texture: {fileID: 879996381}
-    alphaTexture: {fileID: 0}
-    secondaryTextures: []
-    m_SubMeshes:
-    - serializedVersion: 2
-      firstByte: 0
-      indexCount: 6
-      topology: 0
-      baseVertex: 0
-      firstVertex: 0
-      vertexCount: 4
-      localAABB:
-        m_Center: {x: 0, y: 0, z: 0}
-        m_Extent: {x: 0, y: 0, z: 0}
-    m_IndexBuffer: 000001000200020001000300
-    m_VertexData:
-      serializedVersion: 3
-      m_VertexCount: 4
-      m_Channels:
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 3
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 1
-        offset: 0
-        format: 0
-        dimension: 2
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      m_DataSize: 80
-      _typelessdata: 0ad7a3bb0ad7233c000000000ad7a33b0ad7233c000000000ad7a3bb0ad723bc000000000ad7a33b0ad723bc000000000000000000000000000000000000000000000000000000000000000000000000
-    m_Bindpose: []
-    textureRect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 1
-      height: 2
-    textureRectOffset: {x: 0, y: 0}
-    atlasRectOffset: {x: -1, y: -1}
-    settingsRaw: 64
-    uvTransform: {x: 100, y: 0.5, z: 100, w: 1}
-    downscaleMultiplier: 1
-  m_AtlasRD:
-    serializedVersion: 3
-    texture: {fileID: 879996381}
-    alphaTexture: {fileID: 0}
-    secondaryTextures: []
-    m_SubMeshes:
-    - serializedVersion: 2
-      firstByte: 0
-      indexCount: 6
-      topology: 0
-      baseVertex: 0
-      firstVertex: 0
-      vertexCount: 4
-      localAABB:
-        m_Center: {x: 0, y: 0, z: 0}
-        m_Extent: {x: 0, y: 0, z: 0}
-    m_IndexBuffer: 000001000200020001000300
-    m_VertexData:
-      serializedVersion: 3
-      m_VertexCount: 4
-      m_Channels:
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 3
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 1
-        offset: 0
-        format: 0
-        dimension: 2
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      - stream: 0
-        offset: 0
-        format: 0
-        dimension: 0
-      m_DataSize: 80
-      _typelessdata: 0ad7a3bb0ad7233c000000000ad7a33b0ad7233c000000000ad7a3bb0ad723bc000000000ad7a33b0ad723bc000000000000000000000000000000000000000000000000000000000000000000000000
-    m_Bindpose: []
-    textureRect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 1
-      height: 2
-    textureRectOffset: {x: 0, y: 0}
-    atlasRectOffset: {x: -1, y: -1}
-    settingsRaw: 64
-    uvTransform: {x: 100, y: 0.5, z: 100, w: 1}
-    downscaleMultiplier: 1
-  m_PhysicsShape: []
-  m_Bones: []
-  m_ScriptableObjects: []
-  m_SpriteID: 
 --- !u!1 &1596567882
 GameObject:
   m_ObjectHideFlags: 0
@@ -16174,7 +15904,6 @@ MonoBehaviour:
   sound: {fileID: 1148452317}
   scoreText: {fileID: 1158607712}
   PlayerNameInputField: {fileID: 1068358142}
-  TextCounter: {fileID: 1158607714}
 --- !u!114 &1621055857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16208,27 +15937,13 @@ MonoBehaviour:
   _time: 0
   _timeLimit: 10
   animations:
-  - animation:
-      underlyingValue: {fileID: 2044997023}
-    delay: 0.5
-  - animation:
-      underlyingValue: {fileID: 1412099585}
-    delay: 1
-  - animation:
-      underlyingValue: {fileID: 1158607714}
-    delay: 0
-  - animation:
-      underlyingValue: {fileID: 1158607715}
-    delay: 3.5
-  - animation:
-      underlyingValue: {fileID: 1068358145}
-    delay: 2.5
-  - animation:
-      underlyingValue: {fileID: 407479713}
-    delay: 3
-  - animation:
-      underlyingValue: {fileID: 1450547576}
-    delay: 3.5
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1633720357
 GameObject:
   m_ObjectHideFlags: 0
@@ -16925,6 +16640,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22e92ecb47a5b56489495f4fa8edcce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!28 &1754474392
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 1
+  m_Height: 2
+  m_CompleteImageSize: 12
+  m_MipsStripped: 0
+  m_TextureFormat: 4
+  m_MipCount: 2
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMipmapLimit: 1
+  m_MipmapLimitGroupName: 
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 12
+  _typelessdata: ffad00ff000000ff7f5600ff
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &1774478001
 GameObject:
   m_ObjectHideFlags: 0
@@ -17154,6 +16915,217 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!213 &1787902743
+Sprite:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Rect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 2
+  m_Offset: {x: 0, y: 0}
+  m_Border: {x: 0, y: 0, z: 0, w: 0}
+  m_PixelsToUnits: 100
+  m_Pivot: {x: 0.5, y: 0.5}
+  m_Extrude: 0
+  m_IsPolygon: 0
+  m_AtlasName: 
+  m_PackingTag: 
+  m_RenderDataKey:
+    00000000000000000000000000000000: 0
+  m_AtlasTags: []
+  m_SpriteAtlas: {fileID: 0}
+  m_RD:
+    serializedVersion: 3
+    texture: {fileID: 1754474392}
+    alphaTexture: {fileID: 0}
+    secondaryTextures: []
+    m_SubMeshes:
+    - serializedVersion: 2
+      firstByte: 0
+      indexCount: 6
+      topology: 0
+      baseVertex: 0
+      firstVertex: 0
+      vertexCount: 4
+      localAABB:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 0, y: 0, z: 0}
+    m_IndexBuffer: 000001000200020001000300
+    m_VertexData:
+      serializedVersion: 3
+      m_VertexCount: 4
+      m_Channels:
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 3
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 1
+        offset: 0
+        format: 0
+        dimension: 2
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      m_DataSize: 80
+      _typelessdata: 0ad7a3bb0ad7233c000000000ad7a33b0ad7233c000000000ad7a3bb0ad723bc000000000ad7a33b0ad723bc000000000000000000000000000000000000000000000000000000000000000000000000
+    m_Bindpose: []
+    textureRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1
+      height: 2
+    textureRectOffset: {x: 0, y: 0}
+    atlasRectOffset: {x: -1, y: -1}
+    settingsRaw: 64
+    uvTransform: {x: 100, y: 0.5, z: 100, w: 1}
+    downscaleMultiplier: 1
+  m_AtlasRD:
+    serializedVersion: 3
+    texture: {fileID: 1754474392}
+    alphaTexture: {fileID: 0}
+    secondaryTextures: []
+    m_SubMeshes:
+    - serializedVersion: 2
+      firstByte: 0
+      indexCount: 6
+      topology: 0
+      baseVertex: 0
+      firstVertex: 0
+      vertexCount: 4
+      localAABB:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 0, y: 0, z: 0}
+    m_IndexBuffer: 000001000200020001000300
+    m_VertexData:
+      serializedVersion: 3
+      m_VertexCount: 4
+      m_Channels:
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 3
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 1
+        offset: 0
+        format: 0
+        dimension: 2
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      - stream: 0
+        offset: 0
+        format: 0
+        dimension: 0
+      m_DataSize: 80
+      _typelessdata: 0ad7a3bb0ad7233c000000000ad7a33b0ad7233c000000000ad7a3bb0ad723bc000000000ad7a33b0ad723bc000000000000000000000000000000000000000000000000000000000000000000000000
+    m_Bindpose: []
+    textureRect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1
+      height: 2
+    textureRectOffset: {x: 0, y: 0}
+    atlasRectOffset: {x: -1, y: -1}
+    settingsRaw: 64
+    uvTransform: {x: 100, y: 0.5, z: 100, w: 1}
+    downscaleMultiplier: 1
+  m_PhysicsShape: []
+  m_Bones: []
+  m_ScriptableObjects: []
+  m_SpriteID: 
 --- !u!1 &1794128409
 GameObject:
   m_ObjectHideFlags: 0
@@ -17440,8 +17412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 0, z: 0}
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -17484,6 +17455,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1822739540
 GameObject:
   m_ObjectHideFlags: 0
@@ -18730,6 +18703,7 @@ GameObject:
   - component: {fileID: 2028244981}
   - component: {fileID: 2028244983}
   - component: {fileID: 2028244982}
+  - component: {fileID: 2028244984}
   m_Layer: 5
   m_Name: Effects
   m_TagString: Untagged
@@ -18744,16 +18718,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028244975}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.08630891, w: 0.99626845}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5175574, y: 2.5175574, z: 2.5175574}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1230211771}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -216.4}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 261.97443, y: 0}
   m_SizeDelta: {x: 1300, y: 1300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028244978
@@ -18768,7 +18742,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28281295d09120340a038d3da7cfaf9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  Time: 2.750716
+  Loop: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  StartPosition: 0
+  Speed: 0.01
 --- !u!114 &2028244979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18782,7 +18783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8732755}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -18819,9 +18820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0fd95133ad84bceb410ada04985dbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 0, y: 300, z: 0}
+  Time: 0.44421944
+  Loop: 1
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -18846,6 +18846,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 0, y: 300, z: 0}
 --- !u!114 &2028244982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18858,9 +18860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0fd95133ad84bceb410ada04985dbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: 0
-  StartPosition: {x: 0, y: 0, z: 0}
-  EndPosition: {x: 300, y: 0, z: 0}
+  Time: 0.746928
+  Loop: 1
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -18885,6 +18886,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: {x: 0, y: 0, z: 0}
+  EndPosition: {x: 300, y: 0, z: 0}
 --- !u!114 &2028244983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18897,9 +18900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a0c14a05ce4b51b8e0862d21b5847f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: 0
-  StartZoom: {x: 0, y: 0, z: 0}
-  EndZoom: {x: 3, y: 3, z: 3}
+  Time: 0.5875498
+  Loop: 1
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -18924,6 +18926,48 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartZoom: {x: 0, y: 0, z: 0}
+  EndZoom: {x: 3, y: 3, z: 3}
+--- !u!114 &2028244984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028244975}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ed23fd22e24fa783ff0e2856e21fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Time: 0.7772727
+  Loop: 1
+  Curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  StartPosition: {r: 1, g: 1, b: 1, a: 0}
+  EndPosition: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2031821141
 GameObject:
   m_ObjectHideFlags: 0
@@ -19234,9 +19278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8c3278e11c4cef9a47d4aa749f13ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartPosition: 0
-  EndPosition: 150
-  textComponent: {fileID: 2044997020}
+  Time: 0
+  Loop: 0
   Curve:
     serializedVersion: 2
     m_Curve:
@@ -19261,6 +19304,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  StartPosition: 0
+  EndPosition: 150
 --- !u!114 &2044997024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19469,12 +19514,8 @@ MonoBehaviour:
   _time: 0
   _timeLimit: 3
   animations:
-  - animation:
-      underlyingValue: {fileID: 1067453091}
-    delay: 0
-  - animation:
-      underlyingValue: {fileID: 744616000}
-    delay: 1
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &2083636510
 MonoBehaviour:
   m_ObjectHideFlags: 0

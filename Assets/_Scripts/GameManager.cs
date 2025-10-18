@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         if (player.CurrentScore.Value > player.oldRecord)
         {
             WinPanel.gameObject.SetActive(true);
-            WinPanel.TextCounter.EndNumber = player.CurrentScore.Value;
+            //WinPanel.TextCounter.EndNumber = player.CurrentScore.Value;
             WinPanel.GetComponent<FirAnimationsManager>().StartAnimations();
         }
         else
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         stateMachine.SetState(State.Pause);
         WinPanel.gameObject.SetActive(true);
-        WinPanel.TextCounter.EndNumber = player.CurrentScore.Value;
+        //WinPanel.TextCounter.EndNumber = player.CurrentScore.Value;
         WinPanel.GetComponent<FirAnimationsManager>().StartAnimations();
     }
     [ContextMenu("ToLoseScreen")]

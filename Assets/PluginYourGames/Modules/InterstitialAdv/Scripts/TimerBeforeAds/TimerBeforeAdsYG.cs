@@ -12,7 +12,7 @@ namespace YG
         private GameObject secondsPanelObject;
         [Tooltip("An array of objects that will be displayed in turn in a second. How many objects you put in the array will be reported for as many seconds before the ad is shown.\n\nFor example, put three objects in the array: the left with the text '3', the second with the text '2', the third with the text '1'.\nIn this case, a three-second report will occur showing objects with numbers before advertising.")]
         [SerializeField]
-        private InterfaceReference<IFirAnimation>[] seconds;
+        private InterfaceReference<FirAnimation>[] seconds;
 
         [Space(20)]
         [SerializeField] private UnityEvent onShowTimer;
