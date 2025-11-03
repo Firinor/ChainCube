@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using FirAnimations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +13,7 @@ namespace YG
         private GameObject secondsPanelObject;
         [Tooltip("An array of objects that will be displayed in turn in a second. How many objects you put in the array will be reported for as many seconds before the ad is shown.\n\nFor example, put three objects in the array: the left with the text '3', the second with the text '2', the third with the text '1'.\nIn this case, a three-second report will occur showing objects with numbers before advertising.")]
         [SerializeField]
-        private InterfaceReference<FirAnimation>[] seconds;
+        private List<FirAnimation> seconds;
 
         [Space(20)]
         [SerializeField] private UnityEvent onShowTimer;
@@ -37,9 +38,16 @@ namespace YG
             while (true)
             {
                 yield return new WaitForSeconds(1.0f);
-
+                
                 if (YG2.isTimerAdvCompleted && !YG2.nowAdsShow)
                 {
+                    if (YG2.SkipIterAdv)
+                    {
+                        YG2.InterstitialAdvShow();
+                        yield return new WaitForSeconds(YG2.interAdvInterval);
+                        continue;
+                    }
+                    
                     onShowTimer?.Invoke();
                     objSecCounter = 0;
 
@@ -56,26 +64,22 @@ namespace YG
         IEnumerator TimerAdShow()
         {
             foreach (var obj in seconds)
-                obj.Value.Initialize();
+                obj.Initialize();
             
-            while (true)
-            {
-                seconds[0].Value.Play();
-                yield return new WaitForSecondsRealtime(1.0f);
-                YG2.PauseGame(true);
-                seconds[1].Value.Play();
-                yield return new WaitForSecondsRealtime(1.0f);
-                seconds[2].Value.Play();
-                yield return new WaitForSecondsRealtime(1.0f);
-                YG2.InterstitialAdvShow();
-                backupTimerClosureCoroutine = StartCoroutine(BackupTimerClosure());
-                
-                while (!YG2.nowInterAdv)
-                    yield return null;
-                
-                RestartTimer();
-                yield break;
-            }
+            seconds[0].Play();
+            yield return new WaitForSecondsRealtime(1.0f);
+            YG2.PauseGame(true);
+            seconds[1].Play();
+            yield return new WaitForSecondsRealtime(1.0f);
+            seconds[2].Play();
+            yield return new WaitForSecondsRealtime(1.0f);
+            YG2.InterstitialAdvShow();
+            backupTimerClosureCoroutine = StartCoroutine(BackupTimerClosure());
+            
+            while (!YG2.nowInterAdv)
+                yield return null;
+            
+            RestartTimer();
         }
 
         IEnumerator BackupTimerClosure()
@@ -95,14 +99,14 @@ namespace YG
         {
             secondsPanelObject.SetActive(false);
             foreach (var obj in seconds)
-                obj.Value.ToStartPoint();
+                obj.ToStartPoint();
 
             onHideTimer?.Invoke();
             objSecCounter = 0;
 
             if (checkTimerAdCoroutine == null)
             {
-                if (seconds.Length > 0)
+                if (seconds.Count > 0)
                     checkTimerAdCoroutine = StartCoroutine(CheckTimerAd());
                 else
                     Debug.LogError("Fill in the array 'secondObjects'");

@@ -43,7 +43,7 @@ namespace YG
             }
         }
 
-        private static bool skipIterAdv;
+        public static bool SkipIterAdv;
 
         [InitYG]
         private static void InitInterstitialAdv()
@@ -51,7 +51,7 @@ namespace YG
 #if UNITY_EDITOR
             // Reset static for ESC
             YGInsides.timeShowInterAdv = 0;
-            skipIterAdv = false;
+            SkipIterAdv = false;
             onOpenInterAdv = null;
             onCloseInterAdv = null;
             onCloseInterAdvWasShow = null;
@@ -75,9 +75,9 @@ namespace YG
 
         public static void InterstitialAdvShow()
         {
-            if (skipIterAdv)
+            if (SkipIterAdv)
             {
-                skipIterAdv = false;
+                SkipIterAdv = false;
 #if RU_YG2
                 Message("Вызов рекламы пропущен, т.к. был выполнен метод SkipNextInterAdCall()");
 #else
@@ -112,7 +112,7 @@ namespace YG
             }
         }
 
-        public static void SkipNextInterAdCall() => skipIterAdv = true;
+        public static void SkipNextInterAdCall() => SkipIterAdv = true;
     }
 }
 

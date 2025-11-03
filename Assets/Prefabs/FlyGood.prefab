@@ -31,7 +31,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8986244018787648372}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -107,12 +106,11 @@ RectTransform:
   m_Children:
   - {fileID: 4163196019813344185}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 64, y: 64}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7398811995658788293
 MonoBehaviour:
@@ -143,29 +141,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.051962502
       value: -0.054339066
-      inSlope: -0.33096504
-      outSlope: -0.33096504
+      inSlope: -0.7043074
+      outSlope: -0.7043074
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.16552357
+      outWeight: 0.09044124
     - serializedVersion: 3
-      time: 0.38456565
-      value: -0.047666546
-      inSlope: 0.3610709
-      outSlope: 0.3610709
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
+      time: 0.7
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 3.5473485
+      outSlope: 3.5473485
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.045568425
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -176,14 +165,14 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 100
-      outSlope: 100
-      tangentMode: 34
+      inSlope: 226.91397
+      outSlope: 226.91397
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.33333334
+      outWeight: 0.05888999
     - serializedVersion: 3
-      time: 0.5
+      time: 0.35
       value: 50
       inSlope: 0.021486998
       outSlope: 0.021486998
@@ -192,13 +181,13 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
+      time: 0.7
       value: 0
-      inSlope: -100
-      outSlope: -100
-      tangentMode: 34
+      inSlope: -205.7921
+      outSlope: -205.7921
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.06660175
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

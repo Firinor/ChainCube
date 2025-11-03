@@ -65,10 +65,21 @@ MonoBehaviour:
     m_Localized: ATLA
     m_Metadata:
       m_Items: []
+  - m_Id: 29029138828025856
+    m_Localized: "\xD6D\xDCL\xDCN\xDC AL!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29029857933058048
+    m_Localized: "\u0130zlemek"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 4067800867143417856
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00e03a1b2700000000e03ae52f000000
+        m_Entries: 
+        m_SharedEntries:
+        - id: 167960567808
+        - id: 205709303808

@@ -1,3 +1,5 @@
 Authorization v1.022
+BannerAdv v1.0
 InterstitialAdv v1.01
+Payments v1.01
 RewardedAdv v1.01
