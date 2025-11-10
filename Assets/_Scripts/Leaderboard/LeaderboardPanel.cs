@@ -1,6 +1,7 @@
-using System.Linq;
-using Firestore;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using YG;
+using YG.Utils.LB;
 using Zenject;
 
 public class LeaderboardPanel : MonoBehaviour
@@ -14,6 +15,10 @@ public class LeaderboardPanel : MonoBehaviour
     [Inject]
     private Player player;
     
+    public const string BOARDNAME = "CubidsLeaderboard";
+
+    public int testScore;
+    
     private void Awake()
     {
         RefreshBoard();
@@ -23,22 +28,40 @@ public class LeaderboardPanel : MonoBehaviour
     {
         LoadingText.SetActive(true);
         BestScores.SetActive(false);
-        StartCoroutine(new LeaderboardAPI().GetLeaderboardData(OnSuccess));
+        YG2.onGetLeaderboard += OnSuccessLoad;
+        YG2.GetLeaderboard(BOARDNAME, 10, 1);
     }
 
-    private void OnSuccess(LeaderboardData data)
+    private void OnSuccessLoad(LBData data)
     {
-        var sorted = data.documents.OrderByDescending(player => int.Parse(player.Score)).Take(10);;
+        //var sorted = .OrderByDescending(player => player.score).Take(10);
         int i = 0;
-        foreach (var playerRecord in sorted)
+        foreach (LBPlayerData playerRecord in data.players)
         {
-            entries[i].Name.text = playerRecord.Name;
-            entries[i].Scores.text = playerRecord.Score;
+            entries[i].Name.text = playerRecord.name;
+            entries[i].Scores.text = playerRecord.score.ToString();
             i++;
         }
 
         player.oldRecord = int.Parse(entries[i-1].Scores.text);
         BestScores.SetActive(true);
         LoadingText.SetActive(false);
+    }
+
+    public void SetNewRecord()
+    {
+        YG2.SetLeaderboard(BOARDNAME, player.CurrentScore.Value);
+        SceneManager.LoadScene(0);
+    }
+
+    [ContextMenu("SetScore")]
+    public void SetRecordTest()
+    {
+        YG2.SetLeaderboard(BOARDNAME, testScore);
+    }
+
+    private void OnDestroy()
+    {
+        YG2.onGetLeaderboard -= OnSuccessLoad;
     }
 }

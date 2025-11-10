@@ -15,6 +15,8 @@ public class NewBestScorePanel : MonoBehaviour
     [SerializeField]
     public TMP_InputField PlayerNameInputField;
 
+    public FirTextNumeratorAnimation numerator;
+
     [Inject]
     public void Initialize()
     {
@@ -25,5 +27,6 @@ public class NewBestScorePanel : MonoBehaviour
     private void OnEnable()
     {
         sound.Play();
+        numerator.EndPosition = player.CurrentScore.Value;
     }
 }

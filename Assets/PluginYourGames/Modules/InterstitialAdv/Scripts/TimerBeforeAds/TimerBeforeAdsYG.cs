@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FirAnimations;
 using UnityEngine;
 using UnityEngine.Events;
+using YG.Insides;
 
 namespace YG
 {
@@ -18,9 +19,8 @@ namespace YG
         [Space(20)]
         [SerializeField] private UnityEvent onShowTimer;
         [SerializeField] private UnityEvent onHideTimer;
-
-        private int objSecCounter;
-        private Coroutine checkTimerAdCoroutine, timerAdShowCoroutine, backupTimerClosureCoroutine;
+        
+        private Coroutine checkTimerAdCoroutine, timerAdShowCoroutine;
 
         private void OnEnable()
         {
@@ -31,6 +31,7 @@ namespace YG
         private void OnDisable()
         {
             YG2.onOpenAnyAdv -= RestartTimer;
+            StopAllCoroutines();
         }
 
         IEnumerator CheckTimerAd()
@@ -44,17 +45,17 @@ namespace YG
                     if (YG2.SkipIterAdv)
                     {
                         YG2.InterstitialAdvShow();
-                        yield return new WaitForSeconds(YG2.interAdvInterval);
+                        YGInsides.SetTimerInterAdv();
                         continue;
                     }
                     
                     onShowTimer?.Invoke();
-                    objSecCounter = 0;
 
-                    if (secondsPanelObject)
-                        secondsPanelObject.SetActive(true);
+                    /*if (secondsPanelObject)
+                        secondsPanelObject.SetActive(true);*/
 
                     timerAdShowCoroutine = StartCoroutine(TimerAdShow());
+                    StopCoroutine(checkTimerAdCoroutine);
                     checkTimerAdCoroutine = null;
                     yield break;
                 }
@@ -63,46 +64,38 @@ namespace YG
 
         IEnumerator TimerAdShow()
         {
-            foreach (var obj in seconds)
+            /*foreach (var obj in seconds)
                 obj.Initialize();
             
             seconds[0].Play();
-            yield return new WaitForSecondsRealtime(1.0f);
             YG2.PauseGame(true);
+            yield return new WaitForSecondsRealtime(1.0f);
             seconds[1].Play();
             yield return new WaitForSecondsRealtime(1.0f);
             seconds[2].Play();
-            yield return new WaitForSecondsRealtime(1.0f);
+            yield return new WaitForSecondsRealtime(1.0f);*/
             YG2.InterstitialAdvShow();
-            backupTimerClosureCoroutine = StartCoroutine(BackupTimerClosure());
-            
+
             while (!YG2.nowInterAdv)
                 yield return null;
             
+            YG2.PauseGame(false);
             RestartTimer();
-        }
-
-        IEnumerator BackupTimerClosure()
-        {
-            yield return new WaitForSecondsRealtime(2f);
-
-            if (objSecCounter != 0)
-            {
-                RestartTimer();
-                YG2.PauseGame(false);
-            }
-
-            backupTimerClosureCoroutine = null;
         }
 
         private void RestartTimer()
         {
+            if (timerAdShowCoroutine != null)
+            {
+                StopCoroutine(timerAdShowCoroutine);
+                timerAdShowCoroutine = null;
+            }
+            
             secondsPanelObject.SetActive(false);
             foreach (var obj in seconds)
                 obj.ToStartPoint();
 
             onHideTimer?.Invoke();
-            objSecCounter = 0;
 
             if (checkTimerAdCoroutine == null)
             {
@@ -111,18 +104,11 @@ namespace YG
                 else
                     Debug.LogError("Fill in the array 'secondObjects'");
             }
+        }
 
-            if (timerAdShowCoroutine != null)
-            {
-                StopCoroutine(timerAdShowCoroutine);
-                timerAdShowCoroutine = null;
-            }
-
-            if (backupTimerClosureCoroutine != null)
-            {
-                StopCoroutine(backupTimerClosureCoroutine);
-                backupTimerClosureCoroutine = null;
-            }
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
         }
     }
 }

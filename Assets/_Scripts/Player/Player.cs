@@ -1,6 +1,7 @@
 ﻿using System;
 using UniRx;
 using UnityEngine;
+using YG;
 using Zenject;
 
 public class Player
@@ -25,6 +26,11 @@ public class Player
     private void Initialize(DiContainer container)
     {
         events.OnMerge += AddScore;
+
+        RainbowCount.Value += YG2.saves.RainbowBonus; 
+        BombCount.Value += YG2.saves.BombBonus;
+        GhostCount.Value += YG2.saves.GhostBonus;
+        
         playerCubeMachine = container.Resolve<PlayerCubeMachine>();
         Cube playerStartCube = container.ResolveId<Transform>("PlayerCubeAnchor").GetComponentInChildren<Cube>();
         playerCubeMachine.NewCube(playerStartCube);

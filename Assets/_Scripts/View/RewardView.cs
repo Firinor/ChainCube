@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FirAnimations;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 using Zenject;
 
 public class RewardView : MonoBehaviour
@@ -29,7 +30,7 @@ public class RewardView : MonoBehaviour
     {
         Icon.sprite = ChestSprite;
         gameObject.SetActive(true);
-        Animator.OnEndAllAnimations += () => FlyGoods(cubids);
+        Animator.OnEndAllAnimations += () => FlyGoods(cubids, isPremium: true);
         sound.Play();
         Animator.StartAnimations();
     }
@@ -54,7 +55,7 @@ public class RewardView : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void FlyGoods(List<SpecialCube> cubids)
+    private void FlyGoods(List<SpecialCube> cubids, bool isPremium = false)
     {
         List<FlyLootFilling> loots = new();
         foreach (var cubid in cubids)
@@ -66,16 +67,22 @@ public class RewardView : MonoBehaviour
             {
                 lootFilling.EndPosition = RainbowTransform;
                 lootFilling.OnEndCallback = () => player.RainbowCount.Value++;
+                if(isPremium)
+                    YG2.saves.RainbowBonus++;
             }
             else if (cubid.Index == 1)
             {
                 lootFilling.EndPosition = BombTransform;
                 lootFilling.OnEndCallback = () => player.BombCount.Value++;
+                if(isPremium)
+                    YG2.saves.BombBonus++;
             }
             else if (cubid.Index == 2)
             {
                 lootFilling.EndPosition = GhostTransform;
                 lootFilling.OnEndCallback = () => player.GhostCount.Value++;
+                if(isPremium)
+                    YG2.saves.GhostBonus++;
             }
             else
                 throw new Exception("What Transform?");

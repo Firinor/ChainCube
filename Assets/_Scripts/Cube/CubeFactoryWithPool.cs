@@ -227,6 +227,13 @@ public class CubeFactoryWithPool: MonoBehaviour, IFactory<object, Cube>
             DestroyAllChild();
         GC.Collect();
     }
+    public void FreezeAll()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
     private void DestroyAllChild()
     {
         int i = transform.childCount;

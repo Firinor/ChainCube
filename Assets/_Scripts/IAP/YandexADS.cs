@@ -8,7 +8,6 @@ using YG.Insides;
 public class YandexADS : MonoBehaviour
 {
     [SerializeField] private float Timer;
-    [SerializeField] private Button rewardedButton;
     [SerializeField] private RewardView rewardView;
     [SerializeField] private LootBox lootBox;
 
@@ -51,7 +50,7 @@ public class YandexADS : MonoBehaviour
     {
         switch (ID)
         {
-            case "PurshasesBonus":
+            case "CubidsBonus":
             {
                 List<SpecialCube> loot = lootBox.GetRandomItems<SpecialCube>(count: 10);
                 rewardView.SetReward(loot);
@@ -60,5 +59,10 @@ public class YandexADS : MonoBehaviour
             default:
                 throw new Exception("Unknown Purchase ID!");
         }
+    }
+
+    private void OnDestroy()
+    {
+        YG2.onPurchaseSuccess -= SuccessPurchased;
     }
 }

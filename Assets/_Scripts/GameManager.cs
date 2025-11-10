@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using FirAnimations;
 using UnityEngine;
+using YG;
+using YG.Utils.LB;
 using Zenject;
 
 public class GameManager : MonoBehaviour
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour
     private GameObject LosePanel;
     [SerializeField] 
     private NewBestScorePanel WinPanel;
+    [SerializeField] 
+    private TimerBeforeAdsYG YGTimer;
 
     private IState state;
 
@@ -56,18 +60,27 @@ public class GameManager : MonoBehaviour
         //TODO
     }
 
-    private void MatchEnd()
+    [ContextMenu("MatchEnd")]
+    public void MatchEnd()
     {
-        stateMachine.SetState(State.Pause);
         EndBell.Play();
+        Destroy(YGTimer.gameObject);
         StartCoroutine(ToEndScreen());
-        
     }
 
     private IEnumerator ToEndScreen()
-    {
+    { 
         yield return new WaitForSeconds(3);
-        if (player.CurrentScore.Value > player.oldRecord)
+        YG2.onGetLeaderboard += OnSuccessLoad;
+        YG2.GetLeaderboard(LeaderboardPanel.BOARDNAME, 10, 1);
+    }
+
+    private void OnSuccessLoad(LBData board)
+    {
+        stateMachine.SetState(State.End);
+        YG2.onGetLeaderboard -= OnSuccessLoad;
+        if (player.CurrentScore.Value > player.oldRecord
+            && player.CurrentScore.Value > board.currentPlayer.score)
         {
             WinPanel.gameObject.SetActive(true);
             //WinPanel.TextCounter.EndNumber = player.CurrentScore.Value;
@@ -80,8 +93,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     [ContextMenu("ToWinScreen")]
-    private void CheatWin()
+    public void CheatWin()
     {
         stateMachine.SetState(State.Pause);
         WinPanel.gameObject.SetActive(true);
@@ -89,12 +103,14 @@ public class GameManager : MonoBehaviour
         WinPanel.GetComponent<FirAnimationsManager>().StartAnimations();
     }
     [ContextMenu("ToLoseScreen")]
-    private void CheatLose()
+    public void CheatLose()
     {
         stateMachine.SetState(State.Pause);
         LosePanel.SetActive(true);
         LosePanel.GetComponent<FirAnimationsManager>().StartAnimations();
     }
+#endif
+    
     private void CleareScore()
     {
         player.CurrentScore.Value = 0;
@@ -108,6 +124,7 @@ public class GameManager : MonoBehaviour
     
     private void OnDestroy()
     {
+        YG2.onGetLeaderboard -= OnSuccessLoad;
         events.OnMerge -= BonusCheck;
         events.OnLose -= MatchEnd;
         WinPanel.PlayerNameInputField.onEndEdit.RemoveListener(SavePlayerName);

@@ -1,6 +1,7 @@
 using System.Collections;
 using Firestore;
 using UnityEngine;
+using YG;
 using Zenject;
 
 public class SendRecordScript : MonoBehaviour
@@ -12,7 +13,7 @@ public class SendRecordScript : MonoBehaviour
 
     public void SendRecord()
     {
-        StartCoroutine(SendRecordCoroutine());
+        
     }
 
     public IEnumerator SendRecordCoroutine()
