@@ -215,17 +215,18 @@ MonoBehaviour:
     syncInitSDK: 0
     loadSceneIfSDKLate: 0
     loadSceneIndex: 0
-    simulationLoadScene: 0
+    initDelaySimulation: 0
+    buildNumber: 11
   Simulation:
     device: 0
-    language: ru
-    advIntervalSimulation: 60
+    language: tr
+    advIntervalSimulation: 10
     durationAdv: 0.5
     loadAdv: 0
     testFailAds: 0
   Templates:
-    logoImageFormat: 2
-    backgroundImgFormat: 0
+    logoImageFormat: 1
+    backgroundImgFormat: 3
     gradientBackgroundByLoadGame:
       radial: 0
       angleInclination: 140

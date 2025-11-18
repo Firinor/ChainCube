@@ -20,7 +20,7 @@ namespace YG
         [SerializeField] private UnityEvent onShowTimer;
         [SerializeField] private UnityEvent onHideTimer;
         
-        private Coroutine checkTimerAdCoroutine, timerAdShowCoroutine;
+        private Coroutine timerAdShowCoroutine;
 
         private void OnEnable()
         {
@@ -34,41 +34,33 @@ namespace YG
             StopAllCoroutines();
         }
 
-        IEnumerator CheckTimerAd()
+        public void CheckTimerAd()
         {
-            while (true)
+            if (!YG2.isTimerAdvCompleted || YG2.nowAdsShow) 
+                return;
+            
+            if (YG2.SkipIterAdv)
             {
-                yield return new WaitForSeconds(1.0f);
-                
-                if (YG2.isTimerAdvCompleted && !YG2.nowAdsShow)
-                {
-                    if (YG2.SkipIterAdv)
-                    {
-                        YG2.InterstitialAdvShow();
-                        YGInsides.SetTimerInterAdv();
-                        continue;
-                    }
-                    
-                    onShowTimer?.Invoke();
-
-                    /*if (secondsPanelObject)
-                        secondsPanelObject.SetActive(true);*/
-
-                    timerAdShowCoroutine = StartCoroutine(TimerAdShow());
-                    StopCoroutine(checkTimerAdCoroutine);
-                    checkTimerAdCoroutine = null;
-                    yield break;
-                }
+                YG2.InterstitialAdvShow();
+                YGInsides.SetTimerInterAdv();
+                return;
             }
+                
+            //onShowTimer?.Invoke();
+
+            /*if (secondsPanelObject)
+                    secondsPanelObject.SetActive(true);*/
+
+            timerAdShowCoroutine = StartCoroutine(AdShow());
         }
 
-        IEnumerator TimerAdShow()
+        IEnumerator AdShow()
         {
+            YG2.PauseGame(true);
             /*foreach (var obj in seconds)
                 obj.Initialize();
             
             seconds[0].Play();
-            YG2.PauseGame(true);
             yield return new WaitForSecondsRealtime(1.0f);
             seconds[1].Play();
             yield return new WaitForSecondsRealtime(1.0f);
@@ -80,7 +72,6 @@ namespace YG
                 yield return null;
             
             YG2.PauseGame(false);
-            RestartTimer();
         }
 
         private void RestartTimer()
@@ -96,14 +87,6 @@ namespace YG
                 obj.ToStartPoint();
 
             onHideTimer?.Invoke();
-
-            if (checkTimerAdCoroutine == null)
-            {
-                if (seconds.Count > 0)
-                    checkTimerAdCoroutine = StartCoroutine(CheckTimerAd());
-                else
-                    Debug.LogError("Fill in the array 'secondObjects'");
-            }
         }
 
         private void OnDestroy()

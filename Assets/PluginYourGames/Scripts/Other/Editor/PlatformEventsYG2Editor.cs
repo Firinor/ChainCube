@@ -12,6 +12,7 @@ namespace YG.EditorScr
         private SerializedProperty platforms;
         private SerializedProperty whenToEvent;
         private SerializedProperty unityEvents;
+        private SerializedProperty executeMode;
         private GUIContent[] options;
         private GUIContent m_AddButonContent;
 
@@ -20,7 +21,7 @@ namespace YG.EditorScr
             platforms = serializedObject.FindProperty("platforms");
             whenToEvent = serializedObject.FindProperty("whenToEvent");
             unityEvents = serializedObject.FindProperty("platformAction");
-            
+            executeMode = serializedObject.FindProperty("executeMode");
             m_AddButonContent = EditorGUIUtility.TrTextContent("Add platform");
 
             string[] allPlatforms = GetAllPlatforms();
@@ -73,13 +74,18 @@ namespace YG.EditorScr
             {
                 ShowAddTriggerMenu();
             }
-            
-            string nameProp = "Platforms for which methods will be triggered";
-            EditorGUILayout.PropertyField(platforms, new GUIContent(nameProp), true);
 
+            string descript;
+            descript = "List of selected platforms";
+            EditorGUILayout.PropertyField(platforms, new GUIContent(descript), true);
             EditorGUILayout.Space(10);
-            nameProp = "When to Execute";
-            EditorGUILayout.PropertyField(whenToEvent, new GUIContent(nameProp), true);
+            descript = "Execution mede";
+            EditorGUILayout.PropertyField(executeMode, new GUIContent(descript), true);
+            descript = "Trigger (when to Execute)";
+            EditorGUILayout.PropertyField(whenToEvent, new GUIContent(descript), true);
+            descript = "To perform:";
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField(descript, TextStyles.Header(Color.white));
 
             int listenerCount = ((PlatformEventsYG2)target).platformAction.GetPersistentEventCount();
             if (listenerCount == 1 && ((PlatformEventsYG2)target).platformAction.GetPersistentTarget(0) != null)
@@ -89,8 +95,8 @@ namespace YG.EditorScr
 
                 if (targetObject.name == ((PlatformEventsYG2)target).gameObject.name && methodName == "DeactivateGameObject")
                 {
-                    string tooltip = "By default, the deactivation method of object is linked";
-                    EditorGUILayout.LabelField(tooltip, TextStyles.Header());
+                    descript = "By default, the deactivation method of object is linked";
+                    EditorGUILayout.LabelField(descript, TextStyles.Header());
                 }
             }
 

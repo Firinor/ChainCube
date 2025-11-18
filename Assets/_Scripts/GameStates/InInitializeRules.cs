@@ -12,9 +12,9 @@ public class InInitializeRules : IState
     
     public void Enter()
     {
-        LoadPlayerName();
+        //LoadPlayerName();
         LoadSoundSettings();
-        LoadLanguage();
+        //LoadLanguage();
         LoadHighscore();
     }
 
@@ -23,7 +23,7 @@ public class InInitializeRules : IState
         if (!PlayerPrefs.HasKey(PrefsKey.PlayerName))
             PlayerPrefs.SetString(PrefsKey.PlayerName, "player" + (int)(Random.value*1000));
 
-        scorePanel.PlayerNameInputField.text = PlayerPrefs.GetString(PrefsKey.PlayerName);
+        //scorePanel.PlayerNameInputField.text = PlayerPrefs.GetString(PrefsKey.PlayerName);
     }
 
     private void LoadHighscore()

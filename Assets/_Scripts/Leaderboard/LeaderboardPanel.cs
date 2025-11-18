@@ -17,8 +17,6 @@ public class LeaderboardPanel : MonoBehaviour
     
     public const string BOARDNAME = "CubidsLeaderboard";
 
-    public int testScore;
-    
     private void Awake()
     {
         RefreshBoard();
@@ -52,12 +50,6 @@ public class LeaderboardPanel : MonoBehaviour
     {
         YG2.SetLeaderboard(BOARDNAME, player.CurrentScore.Value);
         SceneManager.LoadScene(0);
-    }
-
-    [ContextMenu("SetScore")]
-    public void SetRecordTest()
-    {
-        YG2.SetLeaderboard(BOARDNAME, testScore);
     }
 
     private void OnDestroy()

@@ -16,9 +16,17 @@ public class Cube : MonoBehaviour
 
     public CubeCollideEffect CollideEffect;
     public Action<Cube> Remove;
-    public void RemoveCube(){Remove?.Invoke(this);}
+
+    public void RemoveCube()
+    {
+        Remove?.Invoke(this);
+    }
     public Action<Cube> RefreshView;
-    public void CheckView(){RefreshView?.Invoke(this);}
+
+    public void CheckView()
+    {
+        RefreshView?.Invoke(this);
+    }
     
     [Inject]
     private GameSettings settings;
@@ -41,14 +49,22 @@ public class Cube : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!IsInGame) return;
+        if (!IsInGame) 
+            return;
+        
+        if(CollideEffect is null)
+            return;
 
         if (other.CompareTag("Cube"))
         {
-            if(Score == (int)ECube.Ghost) return;//ghost's crutch
+            if(Score == (int)ECube.Ghost) 
+                return;//ghost's crutch
             
             SlidingOff();
             CollideEffect.OnTriggerEnter(this, other);
+
+            if (Score == (int)ECube.Rainbow)
+                CollideEffect = null;
         } 
         else if(other.CompareTag("EndWall"))
         {

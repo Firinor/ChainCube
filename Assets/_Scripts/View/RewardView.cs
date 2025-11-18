@@ -90,6 +90,9 @@ public class RewardView : MonoBehaviour
             loots.Add(lootFilling);
         }
         
+        if(isPremium)
+            YG2.SaveProgress();
+        
         Animator.OnEndAllAnimations = null;
         gameObject.SetActive(false);
         FlyLootManager.instance.AnimateGoods(loots);

@@ -32,8 +32,10 @@ public class GameManager : MonoBehaviour
     {
         events.OnMerge += BonusCheck;
         events.OnLose += MatchEnd;
-        WinPanel.PlayerNameInputField.onEndEdit.AddListener(SavePlayerName);
+        //WinPanel.PlayerNameInputField.onEndEdit.AddListener(SavePlayerName);
         stateMachine.SetState(State.Game);
+
+        player.OnPlayerShoot += YGTimer.CheckTimerAd;
     }
     private void Update()
     {
@@ -127,6 +129,7 @@ public class GameManager : MonoBehaviour
         YG2.onGetLeaderboard -= OnSuccessLoad;
         events.OnMerge -= BonusCheck;
         events.OnLose -= MatchEnd;
-        WinPanel.PlayerNameInputField.onEndEdit.RemoveListener(SavePlayerName);
+        player.OnPlayerShoot -= YGTimer.CheckTimerAd;
+        //WinPanel.PlayerNameInputField.onEndEdit.RemoveListener(SavePlayerName);
     }
 }

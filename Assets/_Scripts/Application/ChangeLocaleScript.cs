@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using YG;
 
 public class ChangeLocaleScript : MonoBehaviour
 {
@@ -8,7 +9,26 @@ public class ChangeLocaleScript : MonoBehaviour
     private IEnumerator Start()
     {
         yield return LocalizationSettings.InitializationOperation;
-        localeIndex = PlayerPrefs.GetInt(PrefsKey.Language);
+        if (PlayerPrefs.HasKey(PrefsKey.Language))
+        {
+            localeIndex = PlayerPrefs.GetInt(PrefsKey.Language);
+            Change(localeIndex);
+            yield break;
+        }
+
+        switch (YG2.envir.language)
+        {
+            case "ru":
+                localeIndex = 1;
+                break;
+            case "tr":
+                localeIndex = 2;
+                break;
+            default:
+                localeIndex = 0;
+                break;
+        }
+
         Change(localeIndex);
     }
 

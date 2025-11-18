@@ -22,6 +22,8 @@ public class Player
     private float cooldown;
     private PlayerCubeMachine playerCubeMachine;
     
+    public Action OnPlayerShoot;
+    
     [Inject]
     private void Initialize(DiContainer container)
     {
@@ -93,6 +95,7 @@ public class Player
         {
             playerCubeMachine.TryShoot();
             cooldown += settings.CubeReloadTime;
+            OnPlayerShoot?.Invoke();
         }
     }
     

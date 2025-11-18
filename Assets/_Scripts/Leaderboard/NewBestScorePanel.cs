@@ -12,15 +12,12 @@ public class NewBestScorePanel : MonoBehaviour
     [SerializeField] 
     private TextMeshProUGUI scoreText;
 
-    [SerializeField]
-    public TMP_InputField PlayerNameInputField;
-
     public FirTextNumeratorAnimation numerator;
 
     [Inject]
     public void Initialize()
     {
-        PlayerNameInputField.text = PlayerPrefs.GetString(PrefsKey.PlayerName);
+        //PlayerNameInputField.text = PlayerPrefs.GetString(PrefsKey.PlayerName);
         scoreText.text = player.CurrentScore.Value.ToString();
     }
 
