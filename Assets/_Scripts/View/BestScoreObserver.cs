@@ -15,9 +15,6 @@ public class BestScoreObserver : MonoBehaviour, IObserver<int>
     [Inject]
     private Player player;
 
-    private DateTime time;
-    private readonly TimeSpan recordDelay = TimeSpan.FromSeconds(10);
-
     public void OnCompleted()
     {
     }
@@ -34,15 +31,15 @@ public class BestScoreObserver : MonoBehaviour, IObserver<int>
         {
             localizedString.Arguments[0] = value;
             localizedString.RefreshString();
-            player.isNewRecord = true;
             PlayerPrefs.SetInt(PrefsKey.PersonalBestScore, value);
-
-            if (DateTime.Now - time > recordDelay)
-            {
-                time = DateTime.Now;
-                YG2.SetLeaderboard(LeaderboardPanel.BOARDNAME, value);
-            }
+            YG2.SetLeaderboard(LeaderboardPanel.BOARDNAME, value);
         }
+    }
+
+    public void SetBestScore()
+    {
+        localizedString.Arguments[0] = PlayerPrefs.GetInt(PrefsKey.PersonalBestScore);
+        localizedString.RefreshString();
     }
 
     [Inject]
@@ -52,7 +49,6 @@ public class BestScoreObserver : MonoBehaviour, IObserver<int>
         localizedString.StringChanged += UpdateBestScore;
         localizedString.RefreshString();
         player.CurrentScore.Subscribe(this);
-        time = DateTime.Now;
     }
 
     private void UpdateBestScore(string value)

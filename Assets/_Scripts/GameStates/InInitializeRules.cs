@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using YG;
+using YG.Utils.LB;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class InInitializeRules : IState
 {
@@ -7,15 +11,12 @@ public class InInitializeRules : IState
     private Player player;
     [Inject]
     private SettingsPanel settings;
-    [Inject]
-    private NewBestScorePanel scorePanel;
-    
+
     public void Enter()
     {
         //LoadPlayerName();
         LoadSoundSettings();
         //LoadLanguage();
-        LoadHighscore();
     }
 
     private void LoadPlayerName()
@@ -24,14 +25,6 @@ public class InInitializeRules : IState
             PlayerPrefs.SetString(PrefsKey.PlayerName, "player" + (int)(Random.value*1000));
 
         //scorePanel.PlayerNameInputField.text = PlayerPrefs.GetString(PrefsKey.PlayerName);
-    }
-
-    private void LoadHighscore()
-    {
-        if (!PlayerPrefs.HasKey(PrefsKey.PersonalBestScore))
-            PlayerPrefs.SetInt(PrefsKey.PersonalBestScore, 2048);
-
-        player.oldRecord = PlayerPrefs.GetInt(PrefsKey.PersonalBestScore);
     }
 
     private void LoadLanguage()

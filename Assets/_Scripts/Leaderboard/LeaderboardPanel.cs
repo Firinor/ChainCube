@@ -19,14 +19,13 @@ public class LeaderboardPanel : MonoBehaviour
 
     private void Awake()
     {
-        RefreshBoard();
+        YG2.onGetLeaderboard += OnSuccessLoad;
     }
 
-    private void RefreshBoard()
+    public void RefreshBoard()
     {
         LoadingText.SetActive(true);
         BestScores.SetActive(false);
-        YG2.onGetLeaderboard += OnSuccessLoad;
         YG2.GetLeaderboard(BOARDNAME, 10, 1);
     }
 
@@ -41,7 +40,7 @@ public class LeaderboardPanel : MonoBehaviour
             i++;
         }
 
-        player.oldRecord = int.Parse(entries[i-1].Scores.text);
+        //player.oldRecord = int.Parse(entries[i-1].Scores.text);
         BestScores.SetActive(true);
         LoadingText.SetActive(false);
     }
@@ -52,6 +51,13 @@ public class LeaderboardPanel : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void ResetRecord()
+    {
+        YG2.SetLeaderboard(BOARDNAME, 0);
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene(0);
+    }
+    
     private void OnDestroy()
     {
         YG2.onGetLeaderboard -= OnSuccessLoad;

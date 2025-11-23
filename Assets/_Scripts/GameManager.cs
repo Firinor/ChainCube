@@ -81,8 +81,7 @@ public class GameManager : MonoBehaviour
     {
         stateMachine.SetState(State.End);
         YG2.onGetLeaderboard -= OnSuccessLoad;
-        if (player.CurrentScore.Value > player.oldRecord
-            && player.CurrentScore.Value > board.currentPlayer.score)
+        if (player.CurrentScore.Value > board.currentPlayer.score)
         {
             WinPanel.gameObject.SetActive(true);
             //WinPanel.TextCounter.EndNumber = player.CurrentScore.Value;

@@ -50,7 +50,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6446439391232
-    m_Localized: LOADING...
+    m_Localized: "The leaderboard\nis only for \nauthorized\nusers"
     m_Metadata:
       m_Items: []
   - m_Id: 6755849003008
@@ -71,6 +71,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 29029857933058048
     m_Localized: Watch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36192697819258880
+    m_Localized: Login
     m_Metadata:
       m_Items: []
   references:

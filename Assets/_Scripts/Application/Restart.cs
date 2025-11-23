@@ -10,12 +10,12 @@ public class Restart : MonoBehaviour
     private Player player;
 
     private int currentScore;
-    private int oldRecord;
-    
+
     public void OnClickRestart()
     {
         currentScore = player.CurrentScore.Value;
-        oldRecord = player.oldRecord;
+        if (currentScore > PlayerPrefs.GetInt(PrefsKey.PersonalBestScore))
+            PlayerPrefs.SetInt(PrefsKey.PersonalBestScore, currentScore);
         YG2.onGetLeaderboard += OnSuccessLoad;
         YG2.GetLeaderboard(LeaderboardPanel.BOARDNAME, 1, 1);
     }
@@ -23,7 +23,7 @@ public class Restart : MonoBehaviour
     private void OnSuccessLoad(LBData board)
     {
         YG2.onGetLeaderboard -= OnSuccessLoad;
-        if (currentScore > oldRecord
+        if (currentScore >= PlayerPrefs.GetInt(PrefsKey.PersonalBestScore)
             && currentScore > board.currentPlayer.score)
             YG2.SetLeaderboard(LeaderboardPanel.BOARDNAME, currentScore);
         SceneManager.LoadScene(0);

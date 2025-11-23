@@ -7,9 +7,7 @@ using Zenject;
 public class Player
 {
     public IntReactiveProperty CurrentScore = new();
-    public bool isNewRecord = false;
-    public int oldRecord;
-    
+
     public IntReactiveProperty RainbowCount = new(2);
     public IntReactiveProperty BombCount = new(2);
     public IntReactiveProperty GhostCount = new(2);

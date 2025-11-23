@@ -37,7 +37,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6446439391232
-    m_Localized: "Y\xDCKLEN\u0130YOR..."
+    m_Localized: "Liderlik tablosu \nsadece \nyetkili\nkullan\u0131c\u0131lar i\xE7indir"
     m_Metadata:
       m_Items: []
   - m_Id: 7651379044352
@@ -71,6 +71,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 29029857933058048
     m_Localized: "\u0130zlemek"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36192697819258880
+    m_Localized: "Oturum a\xE7"
     m_Metadata:
       m_Items: []
   references:
