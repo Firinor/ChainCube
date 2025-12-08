@@ -1,4 +1,6 @@
-﻿namespace YG
+﻿using UnityEngine;
+
+namespace YG
 {
     public partial class SavesYG
     {

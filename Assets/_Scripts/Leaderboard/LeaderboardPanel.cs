@@ -31,10 +31,12 @@ public class LeaderboardPanel : MonoBehaviour
 
     private void OnSuccessLoad(LBData data)
     {
-        //var sorted = .OrderByDescending(player => player.score).Take(10);
+        //var sorted = OrderByDescending(player => player.score).Take(10);
         int i = 0;
         foreach (LBPlayerData playerRecord in data.players)
         {
+            if(i >= entries.Length)
+                break;
             entries[i].Name.text = playerRecord.name;
             entries[i].Scores.text = playerRecord.score.ToString();
             i++;

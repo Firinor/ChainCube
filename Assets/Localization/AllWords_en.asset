@@ -77,6 +77,10 @@ MonoBehaviour:
     m_Localized: Login
     m_Metadata:
       m_Items: []
+  - m_Id: 41637400052162560
+    m_Localized: Loading...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

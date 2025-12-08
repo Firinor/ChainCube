@@ -19,9 +19,9 @@ public class Player
 
     private float cooldown;
     private PlayerCubeMachine playerCubeMachine;
-    
+
     public Action OnPlayerShoot;
-    
+
     [Inject]
     private void Initialize(DiContainer container)
     {

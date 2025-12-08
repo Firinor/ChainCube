@@ -1,3 +1,3 @@
-﻿Build path: E:/UNITY projects/FirGames/Cubid-2048/builds/v2.1.4t8
-Build number: 20
+﻿Build path: E:/UNITY projects/FirGames/Cubid-2048/builds/v2.2.0t
+Build number: 22
 PluginYG version: 2.007
